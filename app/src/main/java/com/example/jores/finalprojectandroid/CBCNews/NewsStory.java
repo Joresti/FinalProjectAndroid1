@@ -8,10 +8,13 @@ public class NewsStory {
     private String description;
     private String imgSrc;
     private String author;
-    private Date pubDate;
+    private String pubDate;
+    private String link;
 
+    public NewsStory(){}
 
-    public NewsStory(String title, String descriptionText, String author, Date pubDate ){
+    public NewsStory(String title, String descriptionText, String author,
+                     String pubDate ){
         this.title = title;
         this.description = descriptionText;
         this.author = author;
@@ -36,13 +39,14 @@ public class NewsStory {
         return imgSrc;
     }
 
-    public Date getPubDate() {
+    public String getPubDate() {
         return pubDate;
     }
 
     public String getAuthor() {
         return author;
     }
+    public String getLink(){return link;}
 
     public void setDescription(String description) {
         this.description = description;
@@ -54,5 +58,24 @@ public class NewsStory {
 
     public void setImgSrc(String imgSrc) {
         this.imgSrc = imgSrc;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public void setPubDate(String pubDate) {
+        this.pubDate = pubDate;
+    }
+
+    public void setLink(String link) {
+        this.link = link;
+    }
+
+
+    @Override
+    public String toString(){
+        String result = title+" "+author + " " +description;
+        return result;
     }
 }

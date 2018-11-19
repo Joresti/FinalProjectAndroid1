@@ -21,7 +21,7 @@ import java.util.ArrayList;
 public class CBCNewsMain extends FragmentActivity {
 
         final private  int REQUEST_INTERNET = 123;
-        public String cbcUrl = "https://www.cbc.ca/cmlink/rss-topstories";
+        public String cbcUrl = "https://www.cbc.ca/cmlink/rss-topstories.xml";
 
         ListView listView;
         ProgressBar pbar;
@@ -39,7 +39,7 @@ public class CBCNewsMain extends FragmentActivity {
 
             if(ContextCompat.checkSelfPermission(this, Manifest.permission.INTERNET) != PackageManager.PERMISSION_GRANTED){
                 ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.INTERNET}, REQUEST_INTERNET);
-            }else{new NewsData(pbar).execute(); }
+            }else{new NewsData(pbar).execute("https://www.cbc.ca/cmlink/rss-topstories"); }
 
         }
 

@@ -31,6 +31,7 @@ class NewsData extends AsyncTask<String, Integer, String> {
     @Override
     protected String doInBackground(String...urls){
         Log.d(TAG, "DOING IN BACKGROUND");
+        Log.d(TAG, urls[0]);
         loadNewsData(urls[0]);
         return "";
     }
@@ -46,11 +47,15 @@ class NewsData extends AsyncTask<String, Integer, String> {
         super.onPostExecute(result);
 
 
-        pbar.setVisibility(View.INVISIBLE);
+        //pbar.setVisibility(View.INVISIBLE);
 
     }
-    /*
-    Loosely adapted from Android Programming with Android studio - Chapter 11
+
+    /**
+     * Loosely adapted from Android Programming with Android studio - Chapter 11
+     * @param urlString CBC url address
+     * @return InputStream
+     * @throws IOException
      */
     private InputStream OpenHttpConnection(String urlString) throws IOException {
         InputStream in = null;
@@ -81,11 +86,33 @@ class NewsData extends AsyncTask<String, Integer, String> {
 
         List stories = new ArrayList<NewsStory>();
 
-        while (parser.next()!=XmlPullParser.END_DOCUMENT){
-            String name = parser.getName();
-            Log.d(TAG, name);
+        while (  parser.next()!=XmlPullParser.END_DOCUMENT) {
 
+
+            String name = (parser.getName() != null ? parser.getName() : "None");
+            String des = (parser.getText() != null ? parser.getText() : "None");
+
+            Log.d(TAG+" NAME", name);
+            Log.d(TAG+" TEXT", des);
+
+            if(name.equals("item")){
+                ParserHelper ph =  new ParserHelper(parser);
+                ph.readItem();
+                stories.add(ph.getStory());
+            }
         }
+
+
+
+
+            //Log.d(TAG, name);
+            //Log.d(TAG, des);
+
+
+
+
+
+
         return stories;
 
     }
