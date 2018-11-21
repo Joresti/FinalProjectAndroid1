@@ -1,4 +1,4 @@
-package com.example.jores.finalprojectandroid.OCTranspo;
+package com.example.jores.finalprojectandroid.octranspo;
 import com.example.jores.finalprojectandroid.R;
 
 import android.support.v7.app.AppCompatActivity;

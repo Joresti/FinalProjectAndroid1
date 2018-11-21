@@ -1,4 +1,4 @@
-package com.example.jores.finalprojectandroid.OCTranspo;
+package com.example.jores.finalprojectandroid.octranspo;
 
 import android.app.AlertDialog;
 import android.content.Intent;

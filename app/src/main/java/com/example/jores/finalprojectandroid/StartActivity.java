@@ -3,51 +3,48 @@ package com.example.jores.finalprojectandroid;
 import android.content.Intent;
 
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import com.example.jores.finalprojectandroid.cbcnews.CBCNewsMain;
 import com.example.jores.finalprojectandroid.foodandnutrition.FoodNutritionActivity;
-import com.example.jores.finalprojectandroid.CBCNews.CBCNewsMain;
-import com.example.jores.finalprojectandroid.OCTranspo.OCTranspoMain;
+import com.example.jores.finalprojectandroid.octranspo.OCTranspoMain;
 
 public class StartActivity extends MenuInflationBaseActivity {
 
+    protected static final String ACTIVITY_NAME = "StartActivity";
+
     Button cbcBtn;
     Button foodBtn;
-    Button movieBtn;
-    Toolbar mainToolBar;
-
-    protected static final String ACTIVITY_NAME = "StartActivity";
+    Button ocBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
+        setSupportActionBar(findViewById(R.id.main_toolbar));
+
         cbcBtn =  findViewById(R.id.cbcNews);
         foodBtn = findViewById(R.id.foodNutrition);
-        movieBtn =  findViewById(R.id.movies);
-        mainToolBar = findViewById(R.id.main_toolbar);
+        ocBtn =  findViewById(R.id.ocTranspoApp);
 
-        setSupportActionBar(mainToolBar);
-
-        cbcBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        cbcBtn.setOnClickListener((view) -> {
             Intent i = new Intent(StartActivity.this, CBCNewsMain.class);
+            Log.i(ACTIVITY_NAME,"Starting activity " + CBCNewsMain.class.getSimpleName());
             startActivity(i);
-            }
         });
 
-        foodBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+        foodBtn.setOnClickListener((view) -> {
             Intent i = new Intent(StartActivity.this, FoodNutritionActivity.class);
+            Log.i(ACTIVITY_NAME,"Starting activity " + FoodNutritionActivity.class.getSimpleName());
             startActivity(i);
-            }
+        });
+
+        ocBtn.setOnClickListener((view) -> {
+            Intent i = new Intent(StartActivity.this, OCTranspoMain.class);
+            Log.i(ACTIVITY_NAME,"Starting activity " + OCTranspoMain.class.getSimpleName());
+            startActivity(i);
         });
 
     }
