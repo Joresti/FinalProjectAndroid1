@@ -96,7 +96,7 @@ public class ParserHelper {
 
         String fileName = des.substring(startFileName, srcEnd);
         Log.d(fileName, fileName);
-        newsStory.setImageFileName(fileName);
+        newsStory.setImgSrc(fileName);
 
         newsStory.setImgSrc(imgSrc);
         int titleInfoStart = des.indexOf("title") + 7;
@@ -107,7 +107,7 @@ public class ParserHelper {
         int start = des.indexOf("<p>") + 3;
         int end = des.indexOf("</p>");
         String description = des.substring(start, end);
-        newsStory.setImage(getBitmap());
+        //newsStory.setImage(getBitmap());
         newsStory.setDescription(titleInfo + "\n" + description);
         parser.next();
         parser.next();
@@ -117,7 +117,7 @@ public class ParserHelper {
     public Bitmap getBitmap(){
         Log.d("BITMAP" ,"IN BITMAP");
 
-        String imageStr = newsStory.getImageFileName();
+        String imageStr = newsStory.getImgSrc();
         String imgUrl = newsStory.getImgSrc();
 
         Log.d("IMGURL", imgUrl);

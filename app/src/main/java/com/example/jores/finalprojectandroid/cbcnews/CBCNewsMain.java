@@ -134,8 +134,8 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
              Log.d("DATA", title);
              Bitmap image =null;
              new GetImage(image).execute(imgFileName,imgSrc);
-             NewsStory story = new NewsStory(title,description,image);
-             newsArrayList.add(story);
+             //NewsStory story = new NewsStory(title,description,image);
+             //newsArrayList.add(story);
          }
          newsAdapter.notifyDataSetChanged();
     }
@@ -170,7 +170,7 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
                 storyView.setText(story.getDescription());
 
                 ImageView imgView = result.findViewById(R.id.image);
-                imgView.setImageBitmap(story.getImage());
+                //imgView.setImageBitmap(story.getImage());
                 //publishProgress(new Integer[]{100});
                 //imgView.setImageBitmap(image);
                 return result;

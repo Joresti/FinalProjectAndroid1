@@ -6,6 +6,7 @@ import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -137,7 +138,7 @@ class NewsData extends AsyncTask<String, Integer, String> {
         ContentValues cv = new ContentValues();
         cv.put(TITLE,story.getTitle());
         cv.put(IMG_SRC, story.getImgSrc());
-        cv.put(IMG_FILE_NAME, story.getImageFileName());
+        cv.put(IMG_FILE_NAME, story.getImgSrc());
         cv.put(DESCRIPTION,story.getDescription());
         database.insert("NewsStories", null, cv);
     }

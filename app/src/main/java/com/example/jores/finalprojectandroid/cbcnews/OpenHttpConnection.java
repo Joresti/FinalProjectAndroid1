@@ -1,4 +1,4 @@
-package com.example.jores.finalprojectandroid.CBCNews;
+package com.example.jores.finalprojectandroid.cbcnews;
 
 import android.util.Log;
 
