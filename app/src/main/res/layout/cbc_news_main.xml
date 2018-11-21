@@ -10,13 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <EditText
-        android:id="@+id/editTextCBC"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+
     <ProgressBar
         android:id="@+id/progressBarCBC"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/getNews"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/getNews"
+
+        />
+
+
+    <EditText
+        android:id="@+id/editTextCBC"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
     <ListView
