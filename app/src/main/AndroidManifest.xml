@@ -21,9 +21,12 @@
         </activity>
         <activity
             android:name=".foodandnutrition.FoodNutritionActivity"
-            android:label="@string/title_activity_food_nutrition"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
-        <activity android:name=".CBCNews.CBCNewsMain"/>
+            android:label="@string/foodAppName"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".cbcnews.CBCNewsMain"
+            android:label="@string/cbcAppName"
+            android:theme="@style/AppTheme.NoActionBar"/>
 
     </application>
 

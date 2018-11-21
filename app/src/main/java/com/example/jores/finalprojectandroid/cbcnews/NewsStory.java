@@ -1,6 +1,4 @@
-package com.example.jores.finalprojectandroid.CBCNews;
-
-import java.util.Date;
+package com.example.jores.finalprojectandroid.cbcnews;
 
 public class NewsStory {
 

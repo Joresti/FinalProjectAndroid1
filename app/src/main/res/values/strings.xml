@@ -3,5 +3,4 @@
     <string name="cbcAppName">CBC News App</string>
     <string name="foodAppName">Food Nutrition App</string>
     <string name="movieAppName">Movie App</string>
-    <string name="title_activity_food_nutrition">FoodNutritionActivity</string>
 </resources>

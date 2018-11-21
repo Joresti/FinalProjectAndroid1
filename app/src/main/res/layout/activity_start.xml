@@ -9,11 +9,10 @@
     tools:context="StartActivity"
     android:fitsSystemWindows="true">
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/main_toolbar"
+    <include
+        layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </android.support.v7.widget.Toolbar>
+        android:layout_height="wrap_content"/>
 
     <Button
         android:text="@string/cbcAppName"

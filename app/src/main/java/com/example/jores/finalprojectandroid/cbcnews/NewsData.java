@@ -1,8 +1,7 @@
-package com.example.jores.finalprojectandroid.CBCNews;
+package com.example.jores.finalprojectandroid.cbcnews;
 
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
 import android.widget.ProgressBar;
 
 import org.xmlpull.v1.XmlPullParser;

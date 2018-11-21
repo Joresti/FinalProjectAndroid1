@@ -1,11 +1,10 @@
-package com.example.jores.finalprojectandroid.CBCNews;
+package com.example.jores.finalprojectandroid.cbcnews;
 
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,11 +13,12 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 
+import com.example.jores.finalprojectandroid.MenuInflationBaseActivity;
 import com.example.jores.finalprojectandroid.R;
 
 import java.util.ArrayList;
 
-public class CBCNewsMain extends FragmentActivity {
+public class CBCNewsMain extends MenuInflationBaseActivity {
 
         final private  int REQUEST_INTERNET = 123;
         public String cbcUrl = "https://www.cbc.ca/cmlink/rss-topstories.xml";
@@ -31,6 +31,9 @@ public class CBCNewsMain extends FragmentActivity {
         public void onCreate(Bundle savedInstance) {
             super.onCreate(savedInstance);
             setContentView(R.layout.cbc_news_main);
+
+            //Adding the toolbar to the activity
+            setSupportActionBar(findViewById(R.id.main_toolbar));
 
             newsArrayList = new ArrayList();
             listView = findViewById(R.id.listViewCBC);
