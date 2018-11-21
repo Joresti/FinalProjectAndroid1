@@ -31,7 +31,10 @@
             android:name=".octranspo.OCTranspoMain"
             android:label="@string/ocTranspoAppName"
             android:theme="@style/AppTheme.NoActionBar"/>
-
+        <activity
+            android:name=".octranspo.BusStops"
+            android:label="@string/ocTranspoBusStopsName"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
