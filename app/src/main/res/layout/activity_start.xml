@@ -6,7 +6,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".start_activity">
+    tools:context=".StartActivity">
 
     <Button
         android:text="@string/cbcAppName"
@@ -19,8 +19,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
     <Button
-        android:text="@string/movieAppName"
-        android:id="@+id/movies"
+        android:text="@string/ocTranspoAppName"
+        android:id="@+id/ocTranspoApp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

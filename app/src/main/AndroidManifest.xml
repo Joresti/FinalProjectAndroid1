@@ -16,6 +16,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".OCTranspo.OCTranspoMain" />
+        <activity android:name=".CBCNews.CBCNewsMain" />
+        <activity android:name=".OCTranspo.BusStops"></activity>
     </application>
 
 </manifest>
