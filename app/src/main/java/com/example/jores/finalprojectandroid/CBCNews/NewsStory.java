@@ -1,5 +1,7 @@
 package com.example.jores.finalprojectandroid.CBCNews;
 
+import android.graphics.Bitmap;
+
 import java.util.Date;
 
 public class NewsStory {
@@ -10,22 +12,17 @@ public class NewsStory {
     private String author;
     private String pubDate;
     private String link;
+    private String imageFileName;
+    private Bitmap image;
 
     public NewsStory(){}
 
-    public NewsStory(String title, String descriptionText, String author,
-                     String pubDate ){
+    public NewsStory(String title, String descriptionText, Bitmap image){
         this.title = title;
         this.description = descriptionText;
-        this.author = author;
-        this.pubDate = pubDate;
-        //descritionParser(descriptionText);
+        this.image=image;
+
     }
-
-    // public void descritionParser(String des){
-
-    //}
-
 
     public String getDescription() {
         return description;
@@ -48,6 +45,18 @@ public class NewsStory {
     }
     public String getLink(){return link;}
 
+    public String getImageFileName() {
+        return imageFileName;
+    }
+
+    public Bitmap getImage() {
+        return image;
+    }
+
+    public void setImageFileName(String imageFileName) {
+        this.imageFileName = imageFileName;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
@@ -60,18 +69,15 @@ public class NewsStory {
         this.imgSrc = imgSrc;
     }
 
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+    public void setAuthor(String author) {this.author = author; }
 
-    public void setPubDate(String pubDate) {
-        this.pubDate = pubDate;
-    }
+    public void setPubDate(String pubDate) { this.pubDate = pubDate; }
 
-    public void setLink(String link) {
-        this.link = link;
-    }
+    public void setLink(String link) { this.link = link; }
 
+    public void setImage(Bitmap image) {
+        this.image = image;
+    }
 
     @Override
     public String toString(){

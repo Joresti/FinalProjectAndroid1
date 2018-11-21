@@ -3,4 +3,5 @@
     <string name="cbcAppName">CBC News App</string>
     <string name="foodAppName">Food Nutrition App</string>
     <string name="movieAppName">Movie App</string>
+    <string name="getNews">Get Top News Stories</string>
 </resources>

@@ -1,5 +1,9 @@
 package com.example.jores.finalprojectandroid.CBCNews;
 
+import android.content.ContentValues;
+import android.content.Context;
+
+import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
 import android.view.View;
@@ -9,23 +13,40 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 import org.xmlpull.v1.XmlPullParserFactory;
 
+
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.net.URLConnection;
 import java.util.ArrayList;
 import java.util.List;
 
 class NewsData extends AsyncTask<String, Integer, String> {
     String TAG = "NEWS DATA";
+    ArrayList<NewsStory> newsStories;
+    ArrayList<NewsStory> stories;
+    Context context;
+    CBCNewsMain.NewsAdapter newsAdapter;
+    SQLiteDatabase database;
 
+    public static String DATABASE_NAME = "NewsData";
+    public static int VERSION_NUM = 1;
+    protected final static String KEY_ID = "key_id";
+    protected final static String TITLE= "title";
+    protected final static String IMG_SRC = "imgSrc";
+    protected final static String IMG_FILE_NAME = "imgFileName";
+    protected final static String DESCRIPTION = "description";
+
+    public NewsData(){}
 
     ProgressBar pbar;
 
-    public NewsData(ProgressBar pbar){
-
+    public NewsData(ProgressBar pbar, ArrayList<NewsStory> newsStories, Context context, CBCNewsMain.NewsAdapter newsAdapter, SQLiteDatabase database) {
+        this.pbar = pbar;
+        this.newsStories = newsStories;
+        this.context = context;
+        this.newsAdapter = newsAdapter;
+        this.database = database;
     }
 
     @Override
@@ -45,38 +66,12 @@ class NewsData extends AsyncTask<String, Integer, String> {
     @Override
     protected void onPostExecute(String result){
         super.onPostExecute(result);
+        onProgressUpdate(new Integer[]{100});
 
-
-        //pbar.setVisibility(View.INVISIBLE);
+        newsAdapter.notifyDataSetChanged();
+        pbar.setVisibility(View.INVISIBLE);
 
     }
-
-    /**
-     * Loosely adapted from Android Programming with Android studio - Chapter 11
-     * @param urlString CBC url address
-     * @return InputStream
-     * @throws IOException
-     */
-    private InputStream OpenHttpConnection(String urlString) throws IOException {
-        InputStream in = null;
-        int response = -1;
-        URL url = new URL(urlString);
-        URLConnection conn = url.openConnection();
-        if (!(conn instanceof HttpURLConnection)) {
-            throw new IOException("Not an http connection");
-        }
-        try {
-            HttpURLConnection httpConn = (HttpURLConnection) conn;
-            httpConn.setAllowUserInteraction(false);httpConn.setInstanceFollowRedirects(true);httpConn.setRequestMethod("GET");httpConn.connect();
-            response = httpConn.getResponseCode();
-            if (response == HttpURLConnection.HTTP_OK) { in = httpConn.getInputStream(); }
-        }
-        catch (Exception e) {
-            Log.i(TAG, e.getLocalizedMessage());
-        }
-        return in;
-    }
-
     /**
      * This is a function to format XML feed to a list
      * @param parser XmlPullParser object
@@ -84,11 +79,9 @@ class NewsData extends AsyncTask<String, Integer, String> {
      */
     public List parseNewsData(XmlPullParser parser) throws XmlPullParserException, IOException {
 
-        List stories = new ArrayList<NewsStory>();
+        stories = new ArrayList<>();
 
         while (  parser.next()!=XmlPullParser.END_DOCUMENT) {
-
-
             String name = (parser.getName() != null ? parser.getName() : "None");
             String des = (parser.getText() != null ? parser.getText() : "None");
 
@@ -96,25 +89,13 @@ class NewsData extends AsyncTask<String, Integer, String> {
             Log.d(TAG+" TEXT", des);
 
             if(name.equals("item")){
-                ParserHelper ph =  new ParserHelper(parser);
+                ParserHelper ph =  new ParserHelper(parser, context);
                 ph.readItem();
-                stories.add(ph.getStory());
+                addToArrayList(ph.getStory());
+
             }
         }
-
-
-
-
-            //Log.d(TAG, name);
-            //Log.d(TAG, des);
-
-
-
-
-
-
-        return stories;
-
+        return new ArrayList();
     }
 
     /**
@@ -124,35 +105,54 @@ class NewsData extends AsyncTask<String, Integer, String> {
 
     public void loadNewsData(String url) {
         Log.d(TAG, "LOADING NEWS DATA");
-
         int BUFFER_SIZE = 2000;
         InputStream in = null;
         XmlPullParser xpp;
         try {
-            in = OpenHttpConnection(url);
+            in = OpenHttpConnection.OpenHttpConnection(url);
         }catch (IOException e){Log.d(TAG,e.getLocalizedMessage());}
+        Log.d(TAG, "LOADING NEWS DATA");
         InputStreamReader isr = new InputStreamReader(in);
         String line = null;
         StringBuilder sBuilder = new StringBuilder();
+        Log.d(TAG, "LOADING NEWS DATA");
 
         try{
+            Log.d(TAG, "LOADING NEWS DATA");
             XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
             factory.setNamespaceAware(true);
             xpp = factory.newPullParser();
             xpp.setInput(isr);
             xpp.next();
             parseNewsData(xpp);
-
-
+            in.close();
 
         }catch(XmlPullParserException e ){
             e.getLocalizedMessage();
         }catch (IOException e1){
             e1.getLocalizedMessage();
         }
+    }
 
+    public void setDatabase(NewsStory story){
+        ContentValues cv = new ContentValues();
+        cv.put(TITLE,story.getTitle());
+        cv.put(IMG_SRC, story.getImgSrc());
+        cv.put(IMG_FILE_NAME, story.getImageFileName());
+        cv.put(DESCRIPTION,story.getDescription());
+        database.insert("NewsStories", null, cv);
+    }
 
+    public void addToArrayList(NewsStory story){
+        if (newsStories.size() >25){
+            NewsStory oldStory = newsStories.get(0);
+            database.delete("NewsStories", TITLE+"= ?", new String[]{oldStory.getTitle()});
+            newsStories.remove(0);
+        }
 
 
     }
+
+
+
 }
