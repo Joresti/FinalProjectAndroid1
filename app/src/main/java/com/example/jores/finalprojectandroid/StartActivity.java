@@ -4,6 +4,7 @@ import android.content.Intent;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.widget.Button;
 
 import com.example.jores.finalprojectandroid.cbcnews.CBCNewsMain;
@@ -12,7 +13,7 @@ import com.example.jores.finalprojectandroid.octranspo.OCTranspoMain;
 
 public class StartActivity extends MenuInflationBaseActivity {
 
-    protected static final String ACTIVITY_NAME = "StartActivity";
+    protected static final String ACTIVITY_NAME = StartActivity.class.getSimpleName();
 
     Button cbcBtn;
     Button foodBtn;
@@ -47,5 +48,10 @@ public class StartActivity extends MenuInflationBaseActivity {
             startActivity(i);
         });
 
+    }
+
+    @Override
+    public void onHelpMenuClick(MenuItem mi){
+        Log.i(ACTIVITY_NAME,"Showing help menu");
     }
 }

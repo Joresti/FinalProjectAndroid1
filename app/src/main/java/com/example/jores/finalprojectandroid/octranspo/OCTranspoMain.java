@@ -6,6 +6,7 @@ import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,6 +17,8 @@ import com.example.jores.finalprojectandroid.MenuInflationBaseActivity;
 import com.example.jores.finalprojectandroid.R;
 
 public class OCTranspoMain extends MenuInflationBaseActivity {
+
+    private static final String ACTIVITY_NAME = OCTranspoMain.class.getSimpleName();
 
    // private Snackbar snackBar;
     private String ACTIVITY_MESSAGE = "OCTranspoMain";
@@ -59,9 +62,10 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
                 .setTitle("Clicking the image has no effect. Click the Start Route button!" )
                 .setNegativeButton("Close", null)
                 .show());
+    }
 
-
-
-
+    @Override
+    public void onHelpMenuClick(MenuItem mi){
+        Log.i(ACTIVITY_NAME,"Showing help menu");
     }
 }
