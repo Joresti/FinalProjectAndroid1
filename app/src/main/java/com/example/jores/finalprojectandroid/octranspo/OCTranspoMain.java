@@ -34,9 +34,6 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_octranspo_main);
 
-        //Adding the toolbar to the activity
-        setSupportActionBar(findViewById(R.id.main_toolbar));
-
         //create SnackBar to display when OCTranspo App is clicked on
         View view = findViewById(android.R.id.content);
         Snackbar.make(view, "CST 2335 ChadSouster OC Transpo Route App", Snackbar.LENGTH_LONG)

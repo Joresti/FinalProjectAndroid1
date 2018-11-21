@@ -61,9 +61,6 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
             setContentView(R.layout.cbc_news_main);
             newsDatabaseHelper();
 
-            //Adding the toolbar to the activity
-            setSupportActionBar(findViewById(R.id.main_toolbar));
-
             newsArrayList = new ArrayList();
             listView = findViewById(R.id.listViewCBC);
 

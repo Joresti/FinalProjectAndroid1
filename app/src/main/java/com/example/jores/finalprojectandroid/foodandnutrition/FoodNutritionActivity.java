@@ -15,9 +15,6 @@ public class FoodNutritionActivity extends MenuInflationBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_food_nutrition);
-
-        //Adding the toolbar to the activity
-        setSupportActionBar(findViewById(R.id.main_toolbar));
     }
 
     @Override

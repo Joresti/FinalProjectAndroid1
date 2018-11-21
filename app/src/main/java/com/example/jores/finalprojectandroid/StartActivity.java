@@ -24,8 +24,6 @@ public class StartActivity extends MenuInflationBaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_start);
 
-        setSupportActionBar(findViewById(R.id.main_toolbar));
-
         cbcBtn =  findViewById(R.id.cbcNews);
         foodBtn = findViewById(R.id.foodNutrition);
         ocBtn =  findViewById(R.id.ocTranspoApp);

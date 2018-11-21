@@ -1,6 +1,7 @@
 package com.example.jores.finalprojectandroid;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Menu;
@@ -13,6 +14,12 @@ import com.example.jores.finalprojectandroid.octranspo.OCTranspoMain;
 public abstract class MenuInflationBaseActivity extends AppCompatActivity {
 
     private static final String ACTIVITY_NAME = MenuInflationBaseActivity.class.getSimpleName();
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        setSupportActionBar(findViewById(R.id.main_toolbar));
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
