@@ -8,17 +8,31 @@
     android:orientation="vertical">
 
     <include
+        android:id="@+id/action_bar"
         layout="@layout/toolbar_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
     <android.support.v7.widget.AppCompatEditText
         android:id="@+id/food_search_bar"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:hint="@string/search_for_a_food"
         android:singleLine="true"
-        android:layout_below="@id/main_toolbar"/>
+        android:layout_below="@id/action_bar"/>
+
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/search_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search"
+        android:layout_below="@id/action_bar"
+        android:layout_toRightOf="@id/food_search_bar"/>
+
+    <fragment
+        android:id="@+id/main_fragment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
     <ListView
         android:id="@+id/hint_list"
@@ -26,8 +40,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:visibility="invisible"
-        android:layout_below="@id/food_search_bar">
-    </ListView>
+        android:layout_below="@id/food_search_bar"/>
 
     <RelativeLayout
         android:id="@+id/food_info"

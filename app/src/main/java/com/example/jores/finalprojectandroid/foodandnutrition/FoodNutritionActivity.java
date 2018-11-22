@@ -41,11 +41,9 @@ public final class FoodNutritionActivity extends MenuInflationBaseActivity {
     private FoodQuery fq = null;
 
     private SharedPreferences preferences;
-    private ListView hintListView;
     private RelativeLayout foodInfo;
     private EditText searchBar;
     private TextView foodLabel;
-    private final AtomicBoolean userPressedEnter = new AtomicBoolean(false);
     private final ArrayList<JSONObject> hintList = new ArrayList<>();
 
     @Override
@@ -55,12 +53,12 @@ public final class FoodNutritionActivity extends MenuInflationBaseActivity {
 
         preferences = getSharedPreferences("", Context.MODE_PRIVATE);
 
-        hintListView = findViewById(R.id.hint_list);
+        //hintListView = findViewById(R.id.hint_list);
         foodInfo = findViewById(R.id.food_info);
         searchBar = findViewById(R.id.food_search_bar);
         foodLabel = findViewById(R.id.food_label);
 
-        hintListView.setAdapter(new HintAdapter(this));
+        //hintListView.setAdapter(new HintAdapter(this));
 
         searchBar.setOnEditorActionListener((textView, actionID, event)->{
             if(actionID == EditorInfo.IME_ACTION_DONE) {
@@ -86,7 +84,7 @@ public final class FoodNutritionActivity extends MenuInflationBaseActivity {
             SpannableString labelString = new SpannableString(label);
             labelString.setSpan(new UnderlineSpan(), 0, label.length(), 0);
             foodLabel.setText(labelString);
-            hintListView.setVisibility(View.INVISIBLE);
+            //hintListView.setVisibility(View.INVISIBLE);
             foodInfo.setVisibility(View.VISIBLE);
             TextView.class.cast(findViewById(R.id.raw_json)).setText(foodJSON.toString());
         } catch (JSONException je) {
@@ -148,7 +146,7 @@ public final class FoodNutritionActivity extends MenuInflationBaseActivity {
                         for(int i=0; i < hints.length();i++){
                             hintList.add(hints.getJSONObject(i).getJSONObject("food"));
                         }
-                        hintListView.setVisibility(View.VISIBLE);
+                        //hintListView.setVisibility(View.VISIBLE);
                         foodInfo.setVisibility(View.INVISIBLE);
                     } else {
                         Toast toast = Toast.makeText(FoodNutritionActivity.this,"No results found",Toast.LENGTH_LONG);
@@ -159,42 +157,6 @@ public final class FoodNutritionActivity extends MenuInflationBaseActivity {
             } catch (JSONException je){
                 Log.e(ACTIVITY_NAME, je.toString());
             }
-        }
-    }
-
-    private class HintAdapter extends ArrayAdapter<JSONObject> {
-        public HintAdapter(Context ctx) {
-            super(ctx, 0);
-        }
-
-        @Override
-        public int getCount(){
-            return hintList.size();
-        }
-
-        @Override
-        public JSONObject getItem(int index){
-            return hintList.get(index);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent){
-            TextView hint = new TextView(this.getContext());
-            try {
-                hint.setText(hintList.get(position).getString("label"));
-            } catch (JSONException je) {
-                Log.e(ACTIVITY_NAME, je.toString());
-                hint.setText("Unknown, JSON error");
-            }
-            hint.setOnClickListener((l)->{
-                setFoodInfo(hintList.get(position));
-            });
-            return hint;
-        }
-
-        @Override
-        public long getItemId(int index){
-            return index;
         }
     }
 }
