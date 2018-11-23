@@ -1,11 +1,14 @@
 package com.example.jores.finalprojectandroid;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.AttributeSet;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.example.jores.finalprojectandroid.cbcnews.CBCNewsMain;
 import com.example.jores.finalprojectandroid.foodandnutrition.FoodNutritionActivity;
@@ -16,18 +19,16 @@ public abstract class MenuInflationBaseActivity extends AppCompatActivity {
     private static final String ACTIVITY_NAME = MenuInflationBaseActivity.class.getSimpleName();
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onPostCreate(Bundle bundle){
+        super.onPostCreate(bundle);
         setSupportActionBar(findViewById(R.id.main_toolbar));
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         Log.i(ACTIVITY_NAME,"Inflating menu...");
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_toolbar, menu);
-
         return true;
     }
 

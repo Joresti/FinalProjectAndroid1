@@ -2,7 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.jores.finalprojectandroid">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -22,19 +23,20 @@
         <activity
             android:name=".foodandnutrition.FoodNutritionActivity"
             android:label="@string/foodAppName"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".cbcnews.CBCNewsMain"
             android:label="@string/cbcAppName"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".octranspo.OCTranspoMain"
             android:label="@string/ocTranspoAppName"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".octranspo.BusStops"
             android:label="@string/ocTranspoBusStopsName"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".foodandnutrition.FoodInfoActivity"></activity>
     </application>
 
 </manifest>

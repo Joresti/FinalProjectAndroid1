@@ -11,7 +11,9 @@
     <string name="menu_btn_help">Help</string>
     <string name="search_for_a_food">Search for a Food</string>
     <string name="search">Search</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="cant_do_blank_search">Cannot search for nothing</string>
+    <string name="food_search_help_title">Food Search Help</string>
+    <string name="food_search_help_message">Search for a food in the bar and a list of foods from the Database will appear.\nTap a food to find more info on that food.</string>
+    <string name="okay_long">Okay</string>
+    <string name="okay_short">Ok</string>
 </resources>
