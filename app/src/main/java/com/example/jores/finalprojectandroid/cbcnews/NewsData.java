@@ -1,8 +1,10 @@
 package com.example.jores.finalprojectandroid.cbcnews;
 
+
 import android.content.ContentValues;
 import android.content.Context;
 
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.AsyncTask;
 import android.util.Log;
@@ -26,27 +28,29 @@ class NewsData extends AsyncTask<String, Integer, String> {
     ArrayList<NewsStory> newsStories;
     ArrayList<NewsStory> stories;
     Context context;
-    CBCNewsMain.NewsAdapter newsAdapter;
+    CBCNewsMain cbc;
     SQLiteDatabase database;
 
-    public static String DATABASE_NAME = "NewsData";
-    public static int VERSION_NUM = 1;
-    protected final static String KEY_ID = "key_id";
+
+
+
     protected final static String TITLE= "title";
     protected final static String IMG_SRC = "imgSrc";
     protected final static String IMG_FILE_NAME = "imgFileName";
     protected final static String DESCRIPTION = "description";
+    protected final static String LINK = "link";
 
     public NewsData(){}
 
     ProgressBar pbar;
 
-    public NewsData(ProgressBar pbar, ArrayList<NewsStory> newsStories, Context context, CBCNewsMain.NewsAdapter newsAdapter, SQLiteDatabase database) {
+    public NewsData(ProgressBar pbar, CBCNewsMain cbc, Context context, SQLiteDatabase database) {
         this.pbar = pbar;
-        this.newsStories = newsStories;
+        this.newsStories = cbc.newsArrayList;
+        this.database =database;
         this.context = context;
-        this.newsAdapter = newsAdapter;
-        this.database = database;
+        this.cbc =cbc;
+
     }
 
     @Override
@@ -68,9 +72,28 @@ class NewsData extends AsyncTask<String, Integer, String> {
         super.onPostExecute(result);
         onProgressUpdate(new Integer[]{100});
 
-        newsAdapter.notifyDataSetChanged();
+        loadStoriesFromDatabase();
+
         pbar.setVisibility(View.INVISIBLE);
 
+
+    }
+    public void loadStoriesFromDatabase(){
+        Log.d("IN", "LOADSTORIES");
+        Cursor cursor =database.rawQuery("SELECT * FROM NewsStories;", null );
+        cbc.databaseSize = cursor.getCount();
+        Log.d("IN", "LOADSTORIES");
+        if (cursor ==null){
+            Log.d("null", "NULL");
+        }
+        if (cursor !=null){
+            Log.d("null", Integer.toString(cursor.getCount()));
+        }
+
+        Cursor[] c = {cursor};
+        new LoadStories(context,cbc).execute(c);
+
+        cbc.newsAdapter.notifyDataSetChanged();
     }
     /**
      * This is a function to format XML feed to a list
@@ -138,17 +161,17 @@ class NewsData extends AsyncTask<String, Integer, String> {
         ContentValues cv = new ContentValues();
         cv.put(TITLE,story.getTitle());
         cv.put(IMG_SRC, story.getImgSrc());
-        cv.put(IMG_FILE_NAME, story.getImgSrc());
+        cv.put(IMG_FILE_NAME, story.getImageFileName());
         cv.put(DESCRIPTION,story.getDescription());
+        cv.put(LINK, story.getLink());
         database.insert("NewsStories", null, cv);
+
     }
 
     public void addToArrayList(NewsStory story){
-        if (newsStories.size() >25){
-            NewsStory oldStory = newsStories.get(0);
-            database.delete("NewsStories", TITLE+"= ?", new String[]{oldStory.getTitle()});
-            newsStories.remove(0);
-        }
+
+        setDatabase(story);
+
 
 
     }

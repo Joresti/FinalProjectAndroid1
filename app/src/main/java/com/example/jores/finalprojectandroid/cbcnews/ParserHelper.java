@@ -1,5 +1,6 @@
 package com.example.jores.finalprojectandroid.cbcnews;
 
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -92,11 +93,11 @@ public class ParserHelper {
         int srcEnd = des.indexOf("\'", srcStart);
         String imgSrc = des.substring(srcStart, srcEnd);
 
-        int startFileName = srcEnd - 6;
+        int startFileName = srcEnd - 10;
 
         String fileName = des.substring(startFileName, srcEnd);
-        Log.d(fileName, fileName);
-        newsStory.setImgSrc(fileName);
+        Log.d("File Name", fileName);
+        newsStory.setImageFileName(fileName);
 
         newsStory.setImgSrc(imgSrc);
         int titleInfoStart = des.indexOf("title") + 7;
@@ -107,7 +108,7 @@ public class ParserHelper {
         int start = des.indexOf("<p>") + 3;
         int end = des.indexOf("</p>");
         String description = des.substring(start, end);
-        //newsStory.setImage(getBitmap());
+        newsStory.setImage(getBitmap());
         newsStory.setDescription(titleInfo + "\n" + description);
         parser.next();
         parser.next();
@@ -117,7 +118,7 @@ public class ParserHelper {
     public Bitmap getBitmap(){
         Log.d("BITMAP" ,"IN BITMAP");
 
-        String imageStr = newsStory.getImgSrc();
+        String imageStr = newsStory.getImageFileName();
         String imgUrl = newsStory.getImgSrc();
 
         Log.d("IMGURL", imgUrl);

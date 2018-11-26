@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">CST-FinalProject</string>
-    <string name="cbcAppName">CBC News App</string>
+    <string name="app_name">CST-Projet final</string>
+    <string name="cbcAppName">App Nouvelles CBC</string>
     <string name="foodAppName">Food Nutrition App</string>
     <string name="ocTranspoAppName">OC Transpo Route App</string>
     <string name="startRouteButton">Start route</string>
     <string name="startRouteButtonToastMessage">Moving to your Bus stop list</string>
+    <string name="cbcFragSaveBtn">SAUVEZ L\'HISTOIRE</string>
+    <string name="cbcFragDeleteBtn">SUPPRIMER L\'HISTOIRE</string>
+    <string name="cbcMainGetSaved">Obtenez des histoires sauvegardées</string>
+
 
 </resources>

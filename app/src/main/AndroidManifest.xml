@@ -27,6 +27,8 @@
             android:name=".cbcnews.CBCNewsMain"
             android:label="@string/cbcAppName"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".cbcnews.ArticleDetails"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".octranspo.OCTranspoMain"
             android:label="@string/ocTranspoAppName"

@@ -9,4 +9,7 @@
     <string name="startRouteButtonToastMessage">Moving to your Bus stop list</string>
     <string name="ocTranspoBusStopsName">Bus Stops</string>
     <string name="menu_btn_help">Help</string>
+    <string name="cbcFragSaveBtn">SAVE STORY</string>
+    <string name="cbcFragDeleteBtn">DELETE STORY</string>
+    <string name="cbcMainGetSaved">Get Saved Stories</string>
 </resources>

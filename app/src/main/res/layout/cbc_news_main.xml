@@ -10,18 +10,30 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:id="@+id/getNews"
+            android:layout_gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/getNews"
 
-    <ProgressBar
-        android:id="@+id/progressBarCBC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <Button
-        android:id="@+id/getNews"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/getNews"
+            />
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_gravity="end"
+            android:id="@+id/progressBarCBC"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <Button
+            android:id="@+id/getSavedStories"
+            android:text="@string/cbcMainGetSaved"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
 
-        />
+    </LinearLayout>
 
 
     <EditText
