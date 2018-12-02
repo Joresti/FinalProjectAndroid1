@@ -18,7 +18,7 @@ import java.io.IOException;
 public class ParserHelper {
     Context context;
     String TAG = "PARSER HELPER";
-    NewsStory newsStory = new NewsStory();
+    NewsStoryDTO newsStory = new NewsStoryDTO();
     XmlPullParser parser;
 
     public ParserHelper(XmlPullParser parser, Context context) {
@@ -109,7 +109,7 @@ public class ParserHelper {
         int end = des.indexOf("</p>");
         String description = des.substring(start, end);
         newsStory.setImage(getBitmap());
-        newsStory.setDescription(titleInfo + "\n" + description);
+        newsStory.setDescription(titleInfo);
         parser.next();
         parser.next();
         parser.next();
@@ -164,7 +164,7 @@ public class ParserHelper {
     }
 
 
-    public NewsStory getStory() {
+    public NewsStoryDTO getStory() {
         return newsStory;
     }
 

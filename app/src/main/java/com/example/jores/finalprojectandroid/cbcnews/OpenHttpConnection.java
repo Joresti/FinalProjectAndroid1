@@ -18,7 +18,7 @@ public class OpenHttpConnection {
 
     /**
      * Loosely adapted from Android Programming with Android studio - Chapter 11
-     * @param urlString CBC url address
+     * @param urlString cbc url address
      * @return InputStream
      * @throws IOException
      */

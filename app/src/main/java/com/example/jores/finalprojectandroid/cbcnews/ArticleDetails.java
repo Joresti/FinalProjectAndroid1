@@ -27,6 +27,7 @@ public class ArticleDetails extends FragmentActivity {
         Bundle bundle = i.getExtras();
         bundle.putBoolean("tablet", false);
 
+
         ArticleFragment af = new ArticleFragment();
         af.setArguments(bundle);
         ft.replace(R.id.frame,af);

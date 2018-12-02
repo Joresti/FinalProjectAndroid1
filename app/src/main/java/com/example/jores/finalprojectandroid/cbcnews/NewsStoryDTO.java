@@ -9,7 +9,7 @@ import android.os.Parcelable;
  * Learned about Parcelables from http://www.vogella.com/tutorials/AndroidParcelable/article.html
  */
 
-public class NewsStory implements Parcelable {
+public class NewsStoryDTO implements Parcelable {
 
     private String title;
     private String description;
@@ -21,33 +21,37 @@ public class NewsStory implements Parcelable {
     private Bitmap image;
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {
-        public NewsStory createFromParcel(Parcel in) {
-            return new NewsStory(in);
+        public NewsStoryDTO createFromParcel(Parcel in) {
+            return new NewsStoryDTO(in);
         }
 
-        public NewsStory[] newArray(int size) {
-            return new NewsStory[size];
+        public NewsStoryDTO[] newArray(int size) {
+            return new NewsStoryDTO[size];
         }
     };
 
-    public NewsStory(){}
+    public NewsStoryDTO(){}
 
-    public NewsStory(String title, String descriptionText, Bitmap image, String link, String imgSrc, String imageFileName){
+    public NewsStoryDTO(String title, String descriptionText, Bitmap image, String link, String imgSrc, String imageFileName, String date, String author){
         this.title = title;
         this.description = descriptionText;
         this.image=image;
         this.link=link;
         this.imgSrc=imgSrc;
         this.imageFileName= imageFileName;
+        this.pubDate= date;
+        this.author=author;
     }
 
-    public NewsStory(Parcel in){
+    public NewsStoryDTO(Parcel in){
         this.title= in.readString();
         this.description=in.readString();
         this.image=in.readParcelable(Bitmap.class.getClassLoader());
         this.link = in.readString();
         this.imgSrc = in.readString();
         this.imageFileName = in.readString();
+        this.pubDate=in.readString();
+        this.author=in.readString();
     }
 
     public String getDescription() {
@@ -125,5 +129,7 @@ public class NewsStory implements Parcelable {
         dest.writeString(this.link);
         dest.writeString(this.imgSrc);
         dest.writeString(this.imageFileName);
+        dest.writeString(this.pubDate);
+        dest.writeString(this.author);
     }
 }

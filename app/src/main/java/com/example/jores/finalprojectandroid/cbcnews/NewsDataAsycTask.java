@@ -23,10 +23,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-class NewsData extends AsyncTask<String, Integer, String> {
+class NewsDataAsycTask extends AsyncTask<String, Integer, String> {
     String TAG = "NEWS DATA";
-    ArrayList<NewsStory> newsStories;
-    ArrayList<NewsStory> stories;
+    ArrayList<NewsStoryDTO> newsStories;
+    ArrayList<NewsStoryDTO> stories;
     Context context;
     CBCNewsMain cbc;
     SQLiteDatabase database;
@@ -39,12 +39,14 @@ class NewsData extends AsyncTask<String, Integer, String> {
     protected final static String IMG_FILE_NAME = "imgFileName";
     protected final static String DESCRIPTION = "description";
     protected final static String LINK = "link";
+    protected final static String DATE = "date";
+    protected final static String AUTHOR = "author";
 
-    public NewsData(){}
+    public NewsDataAsycTask(){}
 
     ProgressBar pbar;
 
-    public NewsData(ProgressBar pbar, CBCNewsMain cbc, Context context, SQLiteDatabase database) {
+    public NewsDataAsycTask(ProgressBar pbar, CBCNewsMain cbc, Context context, SQLiteDatabase database) {
         this.pbar = pbar;
         this.newsStories = cbc.newsArrayList;
         this.database =database;
@@ -122,10 +124,9 @@ class NewsData extends AsyncTask<String, Integer, String> {
     }
 
     /**
-     * This is a function to load news data from CBC API
+     * This is a function to load news data from cbc API
      * @param url
      */
-
     public void loadNewsData(String url) {
         Log.d(TAG, "LOADING NEWS DATA");
         int BUFFER_SIZE = 2000;
@@ -157,18 +158,20 @@ class NewsData extends AsyncTask<String, Integer, String> {
         }
     }
 
-    public void setDatabase(NewsStory story){
+    public void setDatabase(NewsStoryDTO story){
         ContentValues cv = new ContentValues();
         cv.put(TITLE,story.getTitle());
         cv.put(IMG_SRC, story.getImgSrc());
         cv.put(IMG_FILE_NAME, story.getImageFileName());
         cv.put(DESCRIPTION,story.getDescription());
         cv.put(LINK, story.getLink());
+        cv.put(DATE, story.getPubDate());
+        cv.put(AUTHOR, story.getAuthor());
         database.insert("NewsStories", null, cv);
 
     }
 
-    public void addToArrayList(NewsStory story){
+    public void addToArrayList(NewsStoryDTO story){
 
         setDatabase(story);
 

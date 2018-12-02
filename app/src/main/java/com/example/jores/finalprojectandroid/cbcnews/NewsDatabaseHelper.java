@@ -10,16 +10,19 @@ import android.util.Log;
  */
 public class NewsDatabaseHelper extends SQLiteOpenHelper {
 
+    private static SQLiteDatabase database;
     private static NewsDatabaseHelper sInstance;
 
-    public static String DATABASE_NAME = "NewsData";
-    public static int VERSION_NUM = 2;
+    public static String DATABASE_NAME = "NewsDataAsycTask";
+    public static int VERSION_NUM = 1;
     protected final static String KEY_ID = "key_id";
     protected final static String TITLE= "title";
     protected final static String IMG_SRC = "imgSrc";
     protected final static String IMG_FILE_NAME = "imgFileName";
     protected final static String DESCRIPTION = "description";
     protected final static String LINK = "link";
+    protected final static String DATE = "date";
+    protected final static String AUTHOR = "author";
     public String TAG = "NEWS DATABASE HELPER";
 
 
@@ -28,6 +31,8 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
         if(sInstance ==null){
             sInstance = new NewsDatabaseHelper(context.getApplicationContext());
         }
+        database = sInstance.getWritableDatabase();
+
         return sInstance;
     }
 
@@ -40,8 +45,8 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase){
 
-        sqLiteDatabase.execSQL("CREATE TABLE NewsStories ( "+TITLE+" TEXT, " +IMG_SRC+ " TEXT, " +IMG_FILE_NAME + " TEXT, "+ DESCRIPTION + " TEXT, "+LINK+" TEXT );" );
-        sqLiteDatabase.execSQL("CREATE TABLE SavedStories ( "+TITLE+" TEXT, " +IMG_SRC+ " TEXT, " +IMG_FILE_NAME + " TEXT, "+ DESCRIPTION + " TEXT, "+LINK+" TEXT );" );
+        sqLiteDatabase.execSQL("CREATE TABLE NewsStories ( "+TITLE+" TEXT, " +IMG_SRC+ " TEXT, " +IMG_FILE_NAME + " TEXT, "+ DESCRIPTION + " TEXT, "+LINK+" TEXT, "+DATE+" TEXT, "+AUTHOR+" TEXT );" );
+        sqLiteDatabase.execSQL("CREATE TABLE SavedStories ( "+TITLE+" TEXT, " +IMG_SRC+ " TEXT, " +IMG_FILE_NAME + " TEXT, "+ DESCRIPTION + " TEXT, "+LINK+" TEXT, "+DATE+" TEXT, "+AUTHOR+" TEXT );" );
         Log.i(TAG, "in on CREATE");
     }
 
@@ -59,4 +64,12 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
         this.onCreate(sqLiteDatabase);
         Log.i(TAG, "Calling onUpgrade");
     }
+
+
+    public static SQLiteDatabase getDatabase(){
+        return database;
+    }
+
+
+
 }
