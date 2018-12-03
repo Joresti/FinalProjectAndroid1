@@ -3,6 +3,7 @@ package com.example.jores.finalprojectandroid.foodandnutrition;
 import android.os.AsyncTask;
 import android.support.v4.util.Consumer;
 import android.util.Log;
+import android.view.View;
 import android.widget.ProgressBar;
 
 import org.json.JSONArray;
@@ -113,6 +114,7 @@ public class FoodQuerier {
                 foodJSON = new JSONObject(sb.toString());
                 Log.i(CLASS_NAME,"Created JSON Object: " + foodJSON);
                 progressBar.setProgress(100);
+                progressBar.setVisibility(View.INVISIBLE);
             } catch (Exception e) {
             } finally {
                 try {

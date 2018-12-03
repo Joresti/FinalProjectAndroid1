@@ -1,60 +1,30 @@
 package com.example.jores.finalprojectandroid.foodandnutrition;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
-import android.view.inputmethod.EditorInfo;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.jores.finalprojectandroid.MenuInflationBaseActivity;
 import com.example.jores.finalprojectandroid.R;
 
-import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.ArrayList;
 
 public final class FoodNutritionActivity extends MenuInflationBaseActivity {
     private static final String ACTIVITY_NAME = FoodNutritionActivity.class.getSimpleName();
 
-    private SharedPreferences preferences;
-    private EditText searchBar;
-    private Button searchButton;
-    private ProgressBar progressBar;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_food_list);
+        setContentView(R.layout.activity_food_nut);
 
-        preferences = getSharedPreferences("", Context.MODE_PRIVATE);
-
-        searchBar = findViewById(R.id.food_search_bar);
-        searchButton = findViewById(R.id.search_btn);
-        progressBar = findViewById(R.id.loading_progress);
-
-        searchBar.setOnEditorActionListener((textView, actionID, event)->{
-            if(actionID == EditorInfo.IME_ACTION_DONE) {
-                beginQuery();
-                return true;
-            }
-            return false;
-        });
-
-        searchButton.setOnClickListener((l)->{
-            beginQuery();
-        });
-
-        progressBar.setMax(100);
+        try {
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_content, FoodListFragment.class.newInstance()).commit();
+        } catch (Exception e) {
+            Log.e(ACTIVITY_NAME,e.toString());
+        }
     }
 
     @Override
@@ -64,37 +34,41 @@ public final class FoodNutritionActivity extends MenuInflationBaseActivity {
             Toast.makeText(this,"Toolbar not found",Toast.LENGTH_SHORT).show();
     }
 
-    private void showFoodList(JSONArray hintJSONArray){
-        Log.i(ACTIVITY_NAME,"Showing hints list: " + hintJSONArray);
-        ArrayList<JSONObject> JSONObjectArrayList = new ArrayList<>();
-        for(int i = 0; i < hintJSONArray.length(); i++){
-            try {
-                JSONObjectArrayList.add(hintJSONArray.getJSONObject(i).getJSONObject("food"));
-            } catch(JSONException jse) {
-                Log.e(ACTIVITY_NAME,jse.toString());
+    public void showFoodInfo(JSONObject food){
+        Log.i(ACTIVITY_NAME,food.toString());
+        try {
+            Bundle b = new Bundle();
+            if(food.has("foodId"))
+                b.putString("foodId",food.getString("foodId"));
+            if(food.has("label"))
+                b.putString("label",food.getString("label"));
+            if(food.has("nutrients")){
+                JSONObject nut = food.getJSONObject("nutrients");
+                if(nut.has("ENERC_KCAL"))
+                    b.putString("ENERC_KCAL", nut.getString("ENERC_KCAL"));
+                if(nut.has("PROCNT"))
+                    b.putString("PROCNT", nut.getString("PROCNT"));
+                if(nut.has("FAT"))
+                    b.putString("FAT", nut.getString("FAT"));
+                if(nut.has("CHOCDF"))
+                    b.putString("CHOCDF", nut.getString("CHOCDF"));
+                if(nut.has("FIBTG"))
+                    b.putString("FIBTG", nut.getString("FIBTG"));
             }
-        }
-        FoodListFragment foodListFragment = FoodListFragment.class.cast(getSupportFragmentManager().findFragmentById(R.id.main_fragment));
-        foodListFragment.setFoodList(JSONObjectArrayList);
-    }
+            if(food.has("brand"))
+                b.putString("brand",food.getString("brand"));
+            if(food.has("category"))
+                b.putString("category",food.getString("category"));
+            if(food.has("foodContentsLabel"))
+                b.putString("foodContentsLabel",food.getString("foodContentsLabel"));
 
-    private void beginQuery(){
-        if(searchBar.getText().toString().equals("")) {
-            Toast t = Toast.makeText(this, R.string.cant_do_blank_search, Toast.LENGTH_LONG);
-            t.setGravity(Gravity.CENTER, 0, 0);
-            t.show();
-        }
-        else {
-            progressBar.setVisibility(View.VISIBLE);
-            Log.i(ACTIVITY_NAME, "User searched for " + searchBar.getText());
-            FoodQuerier.getFoodQuerier().setProgressBar(progressBar);
-            FoodQuerier.getFoodQuerier().queryForString(searchBar.getText().toString(), (s) -> {
-                JSONArray hintJSONArray = FoodQuerier.getFoodQuerier().getHintJSON();
-                if (hintJSONArray.length() > 0)
-                    showFoodList(hintJSONArray);
-                else
-                    Toast.makeText(this, "No Results Found", Toast.LENGTH_SHORT).show();
-            });
+            Fragment foodInfoFragment = new FoodInfoFragment();
+            Fragment foodSearchFragment = getSupportFragmentManager().findFragmentById(R.id.main_content);
+            foodInfoFragment.setArguments(b);
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_content, foodInfoFragment).addToBackStack(null).commit();//, foodInfoFragment).addToBackStack(null).commit();
+            foodSearchFragment.onSaveInstanceState(null);
+        } catch (Exception iE){
+            Log.e(ACTIVITY_NAME, iE.toString());
         }
     }
 
