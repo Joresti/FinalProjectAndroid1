@@ -14,7 +14,10 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
-public class LoadStories extends AsyncTask<Cursor, Integer, ArrayList<NewsStoryDTO> > {
+/**
+ * Class to load stories from the Database
+ */
+public class LoadStoriesAsyncTask extends AsyncTask<Cursor, Integer, ArrayList<NewsStoryDTO> > {
 
     String TAG = "LOAD STORY";
 
@@ -22,18 +25,34 @@ public class LoadStories extends AsyncTask<Cursor, Integer, ArrayList<NewsStoryD
 
     Context ctx;
 
+    /**
+     * Constructor
+     * @param ctx Context
+     * @param cbc CBCNewsMain
+     */
 
-    LoadStories(Context ctx, CBCNewsMain  cbc){
+    LoadStoriesAsyncTask(Context ctx, CBCNewsMain  cbc){
         this.ctx=ctx;
 
         this.cbc=cbc;
     }
 
+    /**
+     * Overriding the doInBackground.  Adding functionality:
+     * - Querying database for NewsStories
+     * - Looping through the resulting Cursor
+     * - Constructing an ArrayList with each database object
+     * - Replacing the ArrayList in CBCNewsMain with the newly constructed one
+     *
+     * @param params Array of Cursor objects
+     * @return ArrayList - An ArrayList of NewsStoryDTOs
+     */
+
     @Override
-    public ArrayList doInBackground(Cursor...urls){
+    public ArrayList doInBackground(Cursor...params){
         ArrayList<NewsStoryDTO> arrayList = new ArrayList<>();
 
-        Cursor cursor =urls[0];
+        Cursor cursor =params[0];
         Log.d("LOAD", Integer.toString(cursor.getCount()));
         while(cursor.moveToNext()) {
             String title = cursor.getString(0);
@@ -56,6 +75,13 @@ public class LoadStories extends AsyncTask<Cursor, Integer, ArrayList<NewsStoryD
         return arrayList;
 
     }
+
+    /**
+     * Function to handle bitmap objects for each NewsStoryDTO in the new ArrayList
+     * @param imageStr String representing the filename
+     * @param imgUrl String representing the url address
+     * @return Bitmap - resulting bitmap object -to be saved in a NewsStoryDTO object
+     */
 
     public Bitmap getBitmap(String imageStr, String imgUrl){
         Log.d("BITMAP" ,"IN BITMAP");
@@ -95,12 +121,21 @@ public class LoadStories extends AsyncTask<Cursor, Integer, ArrayList<NewsStoryD
         return image;
     }
 
+    /**
+     * Updates progressbar when called
+     * @param list Integer Array - number to update progresbar with
+     */
     @Override
     protected void onProgressUpdate(Integer...list){
         super.onProgressUpdate(list);
         cbc.pbar.setProgress(cbc.pbar.getProgress()+list[0]);
 
     }
+
+    /**
+     * Replaces ArrayList in CBCNewsMain with the one constructed in this class
+     * @param result ArrayList
+     */
     @Override
     protected void onPostExecute(ArrayList result){
 
@@ -110,6 +145,11 @@ public class LoadStories extends AsyncTask<Cursor, Integer, ArrayList<NewsStoryD
 
     }
 
+    /**
+     * Function to help determine if we already have an image file of the same name stored.
+     * @param fname String filename
+     * @return boolean
+     */
     public boolean fileExistence(String fname){
         File file = ctx.getFileStreamPath(fname);
         return file.exists();

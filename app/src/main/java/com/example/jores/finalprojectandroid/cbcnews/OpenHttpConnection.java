@@ -9,7 +9,7 @@ import java.net.URL;
 import java.net.URLConnection;
 
 /**
- *
+ * Class for opening connection to CBC news rss feed
  */
 
 public class OpenHttpConnection {

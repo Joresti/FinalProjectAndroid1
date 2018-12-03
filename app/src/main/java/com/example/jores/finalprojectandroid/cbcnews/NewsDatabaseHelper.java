@@ -5,9 +5,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
 /**
+ *
+ * A SQLiteOpenHelper class to manage the database connection
+ *
  * Primarily adapted from Android Labs - Lab5
  * Also: https://www.androiddesignpatterns.com/2012/05/correctly-managing-your-sqlite-database.html
- */
+ *
+ *
+ *  */
 public class NewsDatabaseHelper extends SQLiteOpenHelper {
 
     private static SQLiteDatabase database;
@@ -26,7 +31,11 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
     public String TAG = "NEWS DATABASE HELPER";
 
 
-
+    /**
+     * Implements Singleton Pattern for DatabaseHelper object, and database connection object
+     * @param context Context
+     * @return NewsDatabaseHelper
+     */
     public static synchronized NewsDatabaseHelper getInstance(Context context){
         if(sInstance ==null){
             sInstance = new NewsDatabaseHelper(context.getApplicationContext());
@@ -36,11 +45,19 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
         return sInstance;
     }
 
+
+    /**
+     * Constructor
+     * @param ctx Context
+     */
     private NewsDatabaseHelper(Context ctx){
         super(ctx, DATABASE_NAME, null, VERSION_NUM);
     }
 
-
+    /**
+     * OnCreate function, sets up two tables
+     * @param sqLiteDatabase database object
+     */
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase){
@@ -50,6 +67,12 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
         Log.i(TAG, "in on CREATE");
     }
 
+    /**
+     * onUpgrade: deletes both tables
+     * @param sqLiteDatabase SQLiteDatabse
+     * @param oldVer int
+     * @param newVer int
+     */
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int oldVer, int newVer){
         sqLiteDatabase.execSQL("DROP TABLE IF EXISTS NewsStories;");
@@ -65,6 +88,10 @@ public class NewsDatabaseHelper extends SQLiteOpenHelper {
         Log.i(TAG, "Calling onUpgrade");
     }
 
+    /**
+     * Gets the database instance
+     * @return SQLiteDatabase
+     */
 
     public static SQLiteDatabase getDatabase(){
         return database;

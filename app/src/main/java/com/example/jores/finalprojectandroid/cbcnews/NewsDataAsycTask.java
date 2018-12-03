@@ -23,6 +23,10 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * An AsyncTask class to create a seperate thread that pulls XML data from CBC rss feed, processes the result,  and stores it in a database.
+ */
+
 class NewsDataAsycTask extends AsyncTask<String, Integer, String> {
     String TAG = "NEWS DATA";
     ArrayList<NewsStoryDTO> newsStories;
@@ -30,10 +34,6 @@ class NewsDataAsycTask extends AsyncTask<String, Integer, String> {
     Context context;
     CBCNewsMain cbc;
     SQLiteDatabase database;
-
-
-
-
     protected final static String TITLE= "title";
     protected final static String IMG_SRC = "imgSrc";
     protected final static String IMG_FILE_NAME = "imgFileName";
@@ -41,10 +41,20 @@ class NewsDataAsycTask extends AsyncTask<String, Integer, String> {
     protected final static String LINK = "link";
     protected final static String DATE = "date";
     protected final static String AUTHOR = "author";
+    ProgressBar pbar;
 
+    /**
+     * empty constructor
+     */
     public NewsDataAsycTask(){}
 
-    ProgressBar pbar;
+    /**
+     * Constructor
+     * @param pbar
+     * @param cbc
+     * @param context
+     * @param database
+     */
 
     public NewsDataAsycTask(ProgressBar pbar, CBCNewsMain cbc, Context context, SQLiteDatabase database) {
         this.pbar = pbar;
@@ -55,6 +65,12 @@ class NewsDataAsycTask extends AsyncTask<String, Integer, String> {
 
     }
 
+    /**
+     * Override doInBackground
+     * @param urls String Array
+     * @return String
+     */
+
     @Override
     protected String doInBackground(String...urls){
         Log.d(TAG, "DOING IN BACKGROUND");
@@ -63,11 +79,21 @@ class NewsDataAsycTask extends AsyncTask<String, Integer, String> {
         return "";
     }
 
+    /**
+     * Updates progress bar
+     * @param progress Integer array
+     */
+
     @Override
     protected void onProgressUpdate(Integer...progress){
         super.onProgressUpdate(progress);
         pbar.setProgress(progress[0]);
     }
+
+    /**
+     *  Updates CBCNewsMain ArrayList after thread completed
+     * @param result
+     */
 
     @Override
     protected void onPostExecute(String result){
@@ -93,7 +119,7 @@ class NewsDataAsycTask extends AsyncTask<String, Integer, String> {
         }
 
         Cursor[] c = {cursor};
-        new LoadStories(context,cbc).execute(c);
+        new LoadStoriesAsyncTask(context,cbc).execute(c);
 
         cbc.newsAdapter.notifyDataSetChanged();
     }
@@ -125,7 +151,7 @@ class NewsDataAsycTask extends AsyncTask<String, Integer, String> {
 
     /**
      * This is a function to load news data from cbc API
-     * @param url
+     * @param url String
      */
     public void loadNewsData(String url) {
         Log.d(TAG, "LOADING NEWS DATA");
@@ -158,6 +184,11 @@ class NewsDataAsycTask extends AsyncTask<String, Integer, String> {
         }
     }
 
+
+    /**
+     * Converts NewsStoryDTO to strings that are saved in "NewsStories" database table
+     * @param story NewsStoryDTO
+     */
     public void setDatabase(NewsStoryDTO story){
         ContentValues cv = new ContentValues();
         cv.put(TITLE,story.getTitle());
@@ -171,12 +202,13 @@ class NewsDataAsycTask extends AsyncTask<String, Integer, String> {
 
     }
 
+    /**
+     * calls setDatabase
+     * @param story NewsStoryDTO
+     */
+
     public void addToArrayList(NewsStoryDTO story){
-
         setDatabase(story);
-
-
-
     }
 
 

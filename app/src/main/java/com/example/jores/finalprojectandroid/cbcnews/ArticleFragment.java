@@ -21,6 +21,10 @@ import android.widget.Toast;
 
 import com.example.jores.finalprojectandroid.R;
 
+/**
+ * Class extends fragement to display news story, provides options for saving & deleting story
+ */
+
 public class ArticleFragment extends Fragment {
 
     public boolean tablet = true;
@@ -41,6 +45,13 @@ public class ArticleFragment extends Fragment {
     public ArticleFragment() {
     }
 
+    /**
+     * Overriding onCreateView - finding the views in the fragment seting their content & onClickhandlers
+     * @param inflater object used to inflate layout
+     * @param container
+     * @param savedInstanceState arguments
+     * @return View - returns the constructed fragment for displaying
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         super.onCreateView(inflater, container, savedInstanceState);

@@ -33,6 +33,14 @@ import com.example.jores.finalprojectandroid.MenuInflationBaseActivity;
 import com.example.jores.finalprojectandroid.R;
 import java.util.ArrayList;
 
+/**
+ * Main activity of the CBC News part of the application
+ *  - displays news stories it pulls from one of two tables in a database
+ *      - one table holds current news stories
+ *      - one table holds stories saved by user
+ *  - has a button to refresh current news stories
+ *  - has a button to display stories saved by user
+ */
 
 public class CBCNewsMain extends MenuInflationBaseActivity {
 
@@ -59,6 +67,12 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
     android.support.v7.widget.Toolbar toolbar;
     EditText searchBar;
 
+
+    /**
+     * Overriding onCreate -
+     * @param savedInstance
+     */
+
     @Override
     public void onCreate(Bundle savedInstance) {
             super.onCreate(savedInstance);
@@ -67,6 +81,7 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
             database= NewsDatabaseHelper.getDatabase();
             toolbar=findViewById(R.id.main_toolbar);
             searchBar= findViewById(R.id.editTextCBC);
+
 
 
             newsArrayList = new ArrayList();
@@ -116,7 +131,9 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
             getSavedBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    Snackbar.make(getSavedBtn,"Fetching saved stories",Snackbar.LENGTH_SHORT).show();
+
+                    searchBar.setVisibility(View.INVISIBLE);
+                    new GetSavedStatsAsyncTask(cbc).execute();
                     searchBar.setText("");
                     breakingNews=false;
                     loadSavedStoriesFromDatabase();
@@ -127,7 +144,11 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
 
             Log.d(TAG, "in oncreate");
         }
-        private final TextWatcher searchHandler =  new TextWatcher() {
+
+    /**
+     * Object handles changes in edit text.  For each change the object creates an AsyncTask object to update the stories displayed
+     */
+    private final TextWatcher searchHandler =  new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -144,8 +165,11 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
         };
 
 
-
-        public void onHelpMenuClick(MenuItem mi){
+    /**
+     * Handles onClick for the help menu item
+     * @param mi
+     */
+    public void onHelpMenuClick(MenuItem mi){
 
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setTitle(R.string.menu_btn_help);
@@ -161,54 +185,13 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
             dialog.show();
         };
 
-        public void onStart(){
-            super.onStart();
-            Log.i(TAG, "In the onStart() event");
-
-        }
-        public void onRestart(){
-            super.onRestart();
-            Log.i(TAG, "In the onRestart() event");
-        }
-
-        public void onResume(){
-            super.onResume();
-            Log.i(TAG, "In the onResume() event");
-        }
-        public void onPause(){
-            super.onPause();
-            Log.i(TAG, "In the onPause() event");
-        }
-        public void onStop(){
-            super.onStop();
-            Log.i(TAG, "In the onStop() event");
-        }
-        public void onDestroy(){
-            super.onDestroy();
-
-            Log.i(TAG, "In the onDestroy() event");
-        }
-
         /**
-         * Copying the pattern from AndroidLabs.  Function assigning database variable
+         * Function creates a cursor and passes it to an AsyncTask to load current news stories from database
          */
-
-
         public void loadStoriesFromDatabase(){
-
-
-
-
-            Log.d("IN", "LOADSTORIES");
             Cursor cursor =database.rawQuery("SELECT * FROM NewsStories;", null );
             databaseSize = cursor.getCount();
-            cursor.close();
 
-
-            cursor =database.rawQuery("SELECT * FROM NewsStories;", null );
-            databaseSize = cursor.getCount();
-
-            Log.d("IN", "LOADSTORIES");
             if (cursor ==null){
                 Log.d("null", "NULL");
             }
@@ -217,13 +200,16 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
             }
             Cursor[] c = {cursor};
             newsArrayList = new ArrayList<NewsStoryDTO>();
-
-            new LoadStories( getApplicationContext(),this).execute(c);
+            new LoadStoriesAsyncTask( getApplicationContext(),this).execute(c);
 
         }
 
+    /**
+     *
+     * Function creates a cursor and passes it to an AsyncTask to load user-saved news stories from database
+     */
         public void loadSavedStoriesFromDatabase(){
-            Log.d("SAVED", "LOADSAVED");
+
             Cursor cursor =database.rawQuery("SELECT * FROM SavedStories;", null );
 
 
@@ -236,27 +222,48 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
             Cursor[] c = {cursor};
             newsArrayList = new ArrayList<NewsStoryDTO>();
 
-            new LoadStories(getApplicationContext(),this).execute(c);
+            new LoadStoriesAsyncTask(getApplicationContext(),this).execute(c);
 
         }
 
-        /*
-            Structure of class taken from Android Labs project
+        /**
+            Structure of class taken from Android Labs project:
+            - ArrayAdapter for an ArrayList of NewsStoriesDTO
          */
         public class NewsAdapter extends ArrayAdapter<NewsStoryDTO> {
+            /**
+             * Constructor
+             * @param ctx - context of application
+             */
 
             public NewsAdapter(Context ctx) {
                 super(ctx, 0);
             }
 
+            /**
+             * Gets Size of ArrayList
+             * @return
+             */
             public int getCount() {
                 return newsArrayList.size();
             }
 
+            /**
+             * Gets News Story at index
+             * @param position int - index position in ArrayList
+             * @return NewsStory -at index
+             */
             public NewsStoryDTO getItem(int position) {
                 return newsArrayList.get(position);
             }
 
+            /**
+             * Gets the view for one NewsStory in the ArrayList
+             * @param position int position
+             * @param convertView View
+             * @param parent ViewGroup
+             * @return
+             */
             public View getView(int position, View convertView, ViewGroup parent) {
                 LayoutInflater inflater = CBCNewsMain.this.getLayoutInflater();
                 NewsStoryDTO story = getItem(position);

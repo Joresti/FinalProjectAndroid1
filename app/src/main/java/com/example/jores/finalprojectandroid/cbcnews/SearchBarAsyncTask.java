@@ -16,6 +16,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * AsyncTask class to handle OnChange Event for the EditText SearchBar in a separate thread.
+ */
 public class SearchBarAsyncTask extends AsyncTask<String,Integer,ArrayList<NewsStoryDTO> > {
 
     CBCNewsMain cbc;
@@ -24,11 +27,27 @@ public class SearchBarAsyncTask extends AsyncTask<String,Integer,ArrayList<NewsS
     String TAG = "SEARCH BAR ASYNC TASK";
 
 
-
+    /**
+     * constructor
+     * @param ctx Context
+     * @param cbc CBCNewsMain
+     */
     public SearchBarAsyncTask(Context ctx,CBCNewsMain cbc ){
         this.cbc = cbc;
         this.ctx=ctx;
     }
+
+    /**
+     * Queries database for stories with a title containing a substring of the search term,
+     *  and creates an arraylist with these items
+     *
+     *  - CBCNewsMain holds a boolean to indicate if this method should search for current news (Table ="NewsStories")
+     *      or user saved stories (Table = "SavedStories")
+     *
+     *
+     * @param urls
+     * @return
+     */
 
     @Override
     public ArrayList doInBackground(String...urls){
@@ -65,10 +84,10 @@ public class SearchBarAsyncTask extends AsyncTask<String,Integer,ArrayList<NewsS
         return arrayList;
     }
 
-    @Override
-    public void onProgressUpdate(Integer...i){
-
-    }
+    /**
+     * Sets the ArrayList in CBCNewsMain to the ArrayList created in this thread, upon thread completion
+     * @param list
+     */
 
     @Override
     public  void onPostExecute(ArrayList list){
@@ -77,6 +96,13 @@ public class SearchBarAsyncTask extends AsyncTask<String,Integer,ArrayList<NewsS
         cbc.pbar.setVisibility(View.INVISIBLE);
 
     }
+
+    /**
+     * Function to read an image to a Bitmap
+     * @param imageStr
+     * @param imgUrl
+     * @return
+     */
     public Bitmap getBitmap(String imageStr, String imgUrl){
         Log.d("BITMAP" ,"IN BITMAP");
 
@@ -114,6 +140,12 @@ public class SearchBarAsyncTask extends AsyncTask<String,Integer,ArrayList<NewsS
         Log.d("BITMAP" ,"OUT BITMAP");
         return image;
     }
+
+    /**
+     * Function to tell if a file exists
+     * @param fname String
+     * @return boolean
+     */
 
     public boolean fileExistence(String fname){
         File file = ctx.getFileStreamPath(fname);

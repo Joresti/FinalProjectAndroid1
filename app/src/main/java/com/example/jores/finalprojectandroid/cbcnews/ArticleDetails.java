@@ -9,12 +9,19 @@ import android.support.v4.app.FragmentTransaction;
 
 import com.example.jores.finalprojectandroid.R;
 
+/**
+ * Class to hold a fragment, fragment will display news story
+ */
+
 public class ArticleDetails extends FragmentActivity {
 
 
     public ArticleDetails(){}
 
-
+    /**
+     * Class taking extras from intent and passing it to a fragment
+     * @param savedInstanceBundle arguments passed to this activity - custom function does not use
+     */
     @Override
     public void onCreate(Bundle savedInstanceBundle){
 
@@ -25,7 +32,7 @@ public class ArticleDetails extends FragmentActivity {
 
         Intent i = getIntent();
         Bundle bundle = i.getExtras();
-        bundle.putBoolean("tablet", false);
+
 
 
         ArticleFragment af = new ArticleFragment();
