@@ -34,42 +34,9 @@ public final class FoodNutritionActivity extends MenuInflationBaseActivity {
             Toast.makeText(this,"Toolbar not found",Toast.LENGTH_SHORT).show();
     }
 
-    public void showFoodInfo(JSONObject food){
-        Log.i(ACTIVITY_NAME,food.toString());
-        try {
-            Bundle b = new Bundle();
-            if(food.has("foodId"))
-                b.putString("foodId",food.getString("foodId"));
-            if(food.has("label"))
-                b.putString("label",food.getString("label"));
-            if(food.has("nutrients")){
-                JSONObject nut = food.getJSONObject("nutrients");
-                if(nut.has("ENERC_KCAL"))
-                    b.putString("ENERC_KCAL", nut.getString("ENERC_KCAL"));
-                if(nut.has("PROCNT"))
-                    b.putString("PROCNT", nut.getString("PROCNT"));
-                if(nut.has("FAT"))
-                    b.putString("FAT", nut.getString("FAT"));
-                if(nut.has("CHOCDF"))
-                    b.putString("CHOCDF", nut.getString("CHOCDF"));
-                if(nut.has("FIBTG"))
-                    b.putString("FIBTG", nut.getString("FIBTG"));
-            }
-            if(food.has("brand"))
-                b.putString("brand",food.getString("brand"));
-            if(food.has("category"))
-                b.putString("category",food.getString("category"));
-            if(food.has("foodContentsLabel"))
-                b.putString("foodContentsLabel",food.getString("foodContentsLabel"));
-
-            Fragment foodInfoFragment = new FoodInfoFragment();
-            Fragment foodSearchFragment = getSupportFragmentManager().findFragmentById(R.id.main_content);
-            foodInfoFragment.setArguments(b);
-            getSupportFragmentManager().beginTransaction().replace(R.id.main_content, foodInfoFragment).addToBackStack(null).commit();//, foodInfoFragment).addToBackStack(null).commit();
-            foodSearchFragment.onSaveInstanceState(null);
-        } catch (Exception iE){
-            Log.e(ACTIVITY_NAME, iE.toString());
-        }
+    public void showFoodInfo(FoodData food){
+        Fragment foodInfoFragment = FoodInfoFragment.newInstance(food);
+        getSupportFragmentManager().beginTransaction().replace(R.id.main_content, foodInfoFragment).addToBackStack(null).commit();
     }
 
     @Override

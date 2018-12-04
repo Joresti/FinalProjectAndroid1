@@ -16,4 +16,26 @@
     <string name="food_search_help_message">Search for a food in the bar and a list of foods from the Database will appear.\nTap a food to find more info on that food.</string>
     <string name="okay_long">Okay</string>
     <string name="okay_short">Ok</string>
+    <string name="enerc_kcal">Energy (kCal)</string>
+    <string name="kcal">Kilocalorie</string>
+    <string name="kcal_plural">Kilocalories</string>
+    <string name="procnt">Protein</string>
+    <string name="procnt_plural">Proteins</string>
+    <string name="fat">Fat</string>
+    <string name="fat_plural">Fats</string>
+    <string name="chocdf">Carbohydrate</string>
+    <string name="chocdf_plural">Carbohydrates</string>
+    <string name="fibtg">Fibre</string>
+    <string name="fibtg_plural">Fibres</string>
+    <string name="nutrient">Nutrient</string>
+    <string name="nutrient_plural">Nutrients</string>
+    <string name="brand">Brand</string>
+    <string name="category">Category</string>
+    <string name="contents">Contents</string>
+    <string name="load_more_items">Load more items</string>
+    <string name="no_more_items">No more items to load</string>
+    <string name="favourite">Favourite</string>
+    <string name="favourite_plural">Favourites</string>
+    <string name="added_to_fav">Added as favourite</string>
+    <string name="removed_from_fav">Removed from favourites</string>
 </resources>
