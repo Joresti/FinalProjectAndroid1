@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">CST-Projet final</string>
     <string name="cbcAppName">App Nouvelles CBC</string>
-    <string name="foodAppName">Food Nutrition App</string>
+    <string name="foodAppName">App Nutrition Alimentaire</string>
     <string name="ocTranspoAppName">OC Transpo Route App</string>
     <string name="startRouteButton">Start route</string>
     <string name="startRouteButtonToastMessage">Moving to your Bus stop list</string>
@@ -16,4 +16,33 @@
     <string name="cbc_about_msg"></string>
     <string name="cbc_search_bar">Rechercher des mots clés dans le titre</string>
     <string name="cbc_delete_story_warning">Êtes-vous sûr de vouloir supprimer cette histoire?</string>
+    <string name="search_for_a_food">Rechercher un aliment</string>
+    <string name="search">Chercher</string>
+    <string name="cant_do_blank_search">Impossible de chercher rien</string>
+    <string name="food_search_help_title">Aide à la recherche d\'aliments</string>
+    <string name="food_search_help_message">Recherchez un aliment dans le bar et une liste des aliments de la base de données apparaîtra. Appuyez sur un aliment pour trouver plus d\'informations sur cet aliment.</string>
+    <string name="okay_long">D\'accord</string>
+    <string name="okay_short">D\'accord</string>
+    <string name="enerc_kcal">Énergie (kCal)</string>
+    <string name="kcal">Kilocalorie</string>
+    <string name="kcal_plural">Kilocalories</string>
+    <string name="procnt">Protéine</string>
+    <string name="procnt_plural">Les protéines</string>
+    <string name="fat">Graisse</string>
+    <string name="fat_plural">Les graisses</string>
+    <string name="chocdf">Glucides</string>
+    <string name="chocdf_plural">Les glucides</string>
+    <string name="fibtg">Fibre</string>
+    <string name="fibtg_plural">Fibres</string>
+    <string name="nutrient">Nutritif</string>
+    <string name="nutrient_plural">Nutriments</string>
+    <string name="brand">Marque</string>
+    <string name="category">Catégorie</string>
+    <string name="contents">Contenu</string>
+    <string name="load_more_items">Charger plus d\'articles</string>
+    <string name="no_more_items">Plus d\'articles à charger</string>
+    <string name="favourite">Préféré</string>
+    <string name="favourite_plural">L\' préféré</string>
+    <string name="added_to_fav">Ajouté comme favori</string>
+    <string name="removed_from_fav">Retiré des favoris</string>
 </resources>
