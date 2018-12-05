@@ -49,6 +49,7 @@ public class GetSavedStatsAsyncTask extends AsyncTask<String, Integer, String>  
         cursor.close();
         double avgWordCount = (numberOfStories == 0 ? 0 : totalWordCount/numberOfStories);
 
+
         String returnString = Integer.toString(numberOfStories)+" stories are saved. Average word count = "+avgWordCount+". \n"
                 + "Min word count = "+minWordCount+". Max word count = "+maxWordCount+".";
 
