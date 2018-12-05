@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:indeterminate="false"
+        android:max="100"
+        android:minWidth="200dp"
+        android:minHeight="50dp"
+        android:progress="1" />
+
+    <TextView
+        android:id="@+id/busNumberAndDirection"
+        android:layout_width="261dp"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="0dp"
+        android:layout_toStartOf="@+id/selectedRoute"
+        android:text="@string/busNumberAndDirection" />
+
+    <TextView
+        android:id="@+id/selectedRoute"
+        android:layout_width="123dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="@string/routeNumber" />
+
+    <ListView
+        android:id="@+id/routeListView"
+        android:layout_width="175dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/busNumberAndDirection" />
+
+    <FrameLayout
+        android:id="@+id/fragmentFrameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/selectedRoute"
+        android:layout_marginStart="-3dp"
+        android:layout_marginTop="-1dp"
+        android:layout_toEndOf="@id/routeListView">
+
+    </FrameLayout>
+
+</RelativeLayout>

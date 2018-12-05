@@ -32,4 +32,5 @@ public abstract class MenuInflationBaseActivity extends AppCompatActivity {
         Intent i = new Intent(MenuInflationBaseActivity.this, OCTranspoMain.class);
         startActivity(i);
     }
+
 }
