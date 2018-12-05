@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/menu_btn_cbc"
         android:title="@string/cbcAppName"
@@ -11,20 +11,21 @@
     <item
         android:id="@+id/menu_btn_fandb"
         android:title="@string/foodAppName"
+        android:icon="@drawable/fnd"
         android:onClick="onFANDBMenuClick"
-        app:showAsAction="withText"
+        app:showAsAction="always"
 
         />
     <item
         android:id="@+id/menu_btn_oct"
         android:title="@string/ocTranspoAppName"
+        android:icon="@drawable/octranspo"
         android:onClick="onOCTMenuClick"
-        app:showAsAction="withText"
+        app:showAsAction="always"
         />
     <item
         android:id="@+id/menu_btn_help"
         android:title="@string/menu_btn_help"
         android:onClick="onHelpMenuClick"
-        app:showAsAction="withText"
         />
 </menu>
