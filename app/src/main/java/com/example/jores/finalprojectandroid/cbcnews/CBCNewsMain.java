@@ -131,8 +131,6 @@ public class CBCNewsMain extends MenuInflationBaseActivity {
             getSavedBtn.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-
-                    searchBar.setVisibility(View.INVISIBLE);
                     new GetSavedStatsAsyncTask(cbc).execute();
                     searchBar.setText("");
                     breakingNews=false;
