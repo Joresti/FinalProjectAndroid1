@@ -190,8 +190,8 @@ public class RouteActivity extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                        stopID.setText(busStopName);
-                        stopDescription.setText(busStopNumber);
+                        stopID.setText(busStopNumber);
+                        stopDescription.setText(busStopName);
 
                 }
             });
