@@ -12,7 +12,6 @@
     <string name="search">Search</string>
     <string name="cant_do_blank_search">Cannot search for nothing</string>
     <string name="food_search_help_title">Food Search Help</string>
-    <string name="food_search_help_message">Search for a food in the bar and a list of foods from the Database will appear.\nTap a food to find more info on that food.</string>
     <string name="okay_long">Okay</string>
     <string name="okay_short">Ok</string>
     <string name="enerc_kcal">Energy (kCal)</string>
@@ -45,7 +44,7 @@
     <string name="cbc_about_msg">Author: James Oresti \nVersion Number 1 \n Instructions: \n 1. To get new news stories click \"GET TOP NEWS STORIES\" in the top right of the screen. \n2. To save story, click on the story and then click Save story.  \n3. To view saved stories on the home screen click \"GET SAVED STORIES\". \n4. To delete a saved story, click on the story and then click the \"DELETE\" button. </string>
     <string name="cbc_search_bar">Search for key words in headline</string>
     <string name="cbc_delete_story_warning">Are you sure you\'d like to delete this story?</string>
-
+    <string name="food_search_help_message">Search for a food in the bar and a list of foods from the Database will appear. Tap a food to find more info on that food.</string>
 
 
 </resources>
