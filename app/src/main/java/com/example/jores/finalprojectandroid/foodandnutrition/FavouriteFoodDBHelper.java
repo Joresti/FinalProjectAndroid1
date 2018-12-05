@@ -5,27 +5,33 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+/**
+ * A helper class to assist in managing the DB of favourite foods
+ */
 class FavouriteFoodDBHelper extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "foodnut_db";
     private static final int VERSION_NUM = 1;
 
-    public static final String FOOD_NUT_TABLE = "foodnut_t";
-    public static final String FOOD_ID = "foodId";
-    public static final String FOOD_LABEL = "label";
-    public static final String ENERC_KCAL = "ENERC_KCAL";
-    public static final String PROCNT = "PROCNT";
-    public static final String FAT = "FAT";
-    public static final String CHOCDF = "CHOCDF";
-    public static final String FIBTG = "FIBTG";
-    public static final String BRAND = "brand";
-    public static final String CATEGORY = "category";
-    public static final String FOOD_CONTENTS_LABEL = "foodContentsLabel";
+    static final String FOOD_NUT_TABLE = "foodnut_t";
+    static final String FOOD_ID = "foodId";
+    static final String FOOD_LABEL = "label";
+    static final String ENERC_KCAL = "ENERC_KCAL";
+    static final String PROCNT = "PROCNT";
+    static final String FAT = "FAT";
+    static final String CHOCDF = "CHOCDF";
+    static final String FIBTG = "FIBTG";
+    static final String BRAND = "brand";
+    static final String CATEGORY = "category";
+    static final String FOOD_CONTENTS_LABEL = "foodContentsLabel";
 
     FavouriteFoodDBHelper(Context ctx){super(ctx,DATABASE_NAME, null, VERSION_NUM);}
 
+    /**
+     * Overriding the superclass method, initializes the Database and creates the table
+     * @param db The Database to create the tables in
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
-        db.execSQL("DROP TABLE IF EXISTS " + FOOD_NUT_TABLE);
         Log.i(FavouriteFoodDBHelper.class.getSimpleName(),"Creating food nutrition database database");
         db.execSQL("create table " + FOOD_NUT_TABLE + "( " +
                 FOOD_ID + " text primary key, " +
@@ -40,12 +46,24 @@ class FavouriteFoodDBHelper extends SQLiteOpenHelper {
                 FOOD_CONTENTS_LABEL + " text);");
     }
 
+    /**
+     * Overriding the superclass method, destroys the table
+     * @param db The Database to destroy the old table in
+     * @param oldVersion The old version number
+     * @param newVersion The new version number
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + FOOD_NUT_TABLE);
         onCreate(db);
     }
 
+    /**
+     * Overriding the superclass method, destroys the table
+     * @param db The Database to destroy the old table in
+     * @param oldVersion The old version number
+     * @param newVersion The new version number
+     */
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + FOOD_NUT_TABLE);

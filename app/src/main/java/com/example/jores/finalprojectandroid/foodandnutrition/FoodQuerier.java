@@ -17,10 +17,13 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicBoolean;
 
-public class FoodQuerier {
+/**
+ * An object used to submit and parse queries to the Food database
+ */
+class FoodQuerier {
     private static final String CLASS_NAME = FoodQuerier.class.getSimpleName();
-    private static final FoodQuerier FOOD_QUERIER = new FoodQuerier();
 
     private final String APP_ID = "e50b5611";
     private final String APP_KEY = "3412cfeb1ed8581c876a8a1622b9516c";
@@ -28,18 +31,25 @@ public class FoodQuerier {
 
     private String nextURL = null;
     private ArrayList<FoodData> foodList = new ArrayList<>();
-    private JSONObject foodJSON = null;
+    private AtomicBoolean completed = new AtomicBoolean(false);
     private Consumer<String> onPostExecute;
     private ProgressBar progressBar = null;
 
-    private FoodQuery foodQuery = null;
+    private FoodQuery foodQuery;
 
-    private FoodQuerier(){}
-
+    /**
+     * Set the progressBar that this will use to track updates on
+     * @param progressBar The progress bar to track updates on
+     */
     public void setProgressBar(ProgressBar progressBar){
         this.progressBar = progressBar;
     }
 
+    /**
+     * Start a query for a given string
+     * @param query The term to query the DB for
+     * @param onPostExecute A computer that will be executed once the query is finished
+     */
     public void queryForString(String query, Consumer<String> onPostExecute){
         this.onPostExecute = onPostExecute;
 
@@ -50,6 +60,11 @@ public class FoodQuerier {
         foodQuery.execute();
     }
 
+    /**
+     * Starts a query for the next page provided by the last query.
+     * <p>
+     * Will crash if there wasn't a next page, should be used with hasNextPage
+     */
     public void queryNextPage(){
         if(foodQuery != null)
             foodQuery.cancel(true);
@@ -58,33 +73,55 @@ public class FoodQuerier {
         foodQuery.execute();
     }
 
+    /**
+     * Checks if the last query completed had a next page of data
+     * @return Whether the next page exists
+     */
     public boolean hasNextPage(){
         return nextURL != null;
     }
 
-    public ArrayList<FoodData> getFoodList(){return foodList;}
-
-    public static FoodQuerier getFoodQuerier(){
-        return FOOD_QUERIER;
+    /**
+     * Get the list of food created by the last run query
+     * @return The list of food
+     */
+    public ArrayList<FoodData> getFoodList(){
+        return foodList;
     }
 
+    /**
+     * Cancels the currently running query if there is one
+     * @param interrupt Whether or not the query should be interrupted
+     */
     public void cancel(Boolean interrupt){
         if(foodQuery != null)
             foodQuery.cancel(interrupt);
     }
 
+    /**
+     * Private class representing a single AsyncTask for one query
+     */
     private class FoodQuery extends AsyncTask<String, Integer, String> {
-
         String searchURL;
 
-        public FoodQuery(String searchURL){
+        /**
+         * Create a new query to search for the given searchURL
+         * @param searchURL The URL to query for a response
+         */
+        FoodQuery(String searchURL){
             this.searchURL = searchURL;
         }
 
+        /**
+         * Overriding the superclass method, queries the DB and parses the JSON into FoodList
+         * @param strings Parameters for the method
+         * @return Always returns null
+         */
         @Override
         protected String doInBackground(String... strings) {
             BufferedReader bf = null;
             HttpURLConnection conn = null;
+            completed.set(false);
             foodList.clear();
 
             try {
@@ -114,7 +151,7 @@ public class FoodQuerier {
 
                 progressBar.setProgress(50);
 
-                foodJSON = new JSONObject(sb.toString());
+                JSONObject foodJSON = new JSONObject(sb.toString());
 
                 JSONArray hintArray = foodJSON.getJSONArray("hints");
                 for (int i = 0; i < hintArray.length(); i++) {
@@ -144,11 +181,16 @@ public class FoodQuerier {
             return null;
         }
 
+        /**
+         * Overriding the superclass method, executes the previously given lambda, if it isn't null
+         * @param result The results from the doInBackground method
+         */
         @Override
         protected void onPostExecute(String result){
             if(onPostExecute != null && !isCancelled())
                 onPostExecute.accept(result);
             foodQuery = null;
+            completed.set(true);
         }
     }
 }

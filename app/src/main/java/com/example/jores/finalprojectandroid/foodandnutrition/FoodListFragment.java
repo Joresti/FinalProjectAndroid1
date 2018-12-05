@@ -16,51 +16,58 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.jores.finalprojectandroid.R;
 
 import java.util.ArrayList;
+import android.support.annotation.NonNull;
 
 /**
- * A simple {@link Fragment} subclass.
+ * A fragment to let the user search for food from the Database or check their Favourites list for foods
  */
 public class FoodListFragment extends Fragment {
-    private static final String FRAGMENT_NAME = FoodListFragment.class.getSimpleName();
+    private static final String LOGGER_TAG = FoodListFragment.class.getSimpleName();
 
     ListView foodListView = null;
     FoodListAdapter foodListAdapter = null;
     private EditText searchBar;
-    private Button searchButton;
-    private Button favouriteButton;
-    private Button loadMoreButton;
     private ProgressBar progressBar;
+    private View foodListFooter;
 
-    private ArrayList<FoodData> foodList = new ArrayList<>();
+    private ArrayList<FoodData> favouriteList = new ArrayList<>();
+    private ArrayList<FoodData> searchList = new ArrayList<>();
+    private ArrayList<FoodData> displayList = new ArrayList<>();
 
+    private FoodQuerier foodQuerier = new FoodQuerier();
+
+    /**
+     * Overriding the superclass method, inflates the layout for this fragment and initializes the values and views within it.
+     * @param inflater The inflater for this fragment
+     * @param container The ViewGroup for the views in this fragment
+     * @param savedInstanceState The saved bundled for this fragment
+     * @return The view that represents this fragment
+     */
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         super.onCreateView(inflater,container,savedInstanceState);
-        Log.i(FRAGMENT_NAME,"Starting onCreateView");
+        Log.i(LOGGER_TAG,"Starting onCreateView");
 
-        // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_food_list, container, false);
 
         searchBar = rootView.findViewById(R.id.food_search_bar);
-        searchButton = rootView.findViewById(R.id.search_btn);
-        favouriteButton = rootView.findViewById(R.id.favourite_btn);
+        Button searchButton = rootView.findViewById(R.id.search_btn);
+        Button favouriteButton = rootView.findViewById(R.id.favourite_btn);
         progressBar = rootView.findViewById(R.id.loading_progress);
 
         foodListView = rootView.findViewById(R.id.food_list);
         foodListAdapter = new FoodListAdapter(getActivity());
         foodListView.setAdapter(foodListAdapter);
-        foodListView.addFooterView(inflater.inflate(R.layout.footer_food_list,container, false));
+        foodListFooter = inflater.inflate(R.layout.footer_food_list,container, false);
 
-        loadMoreButton = rootView.findViewById(R.id.food_list_footer_btn);
+        Button loadMoreButton = foodListFooter.findViewById(R.id.food_list_footer_btn);
         loadMoreButton.setText(R.string.load_more_items);
-        loadMoreButton.setVisibility(FoodQuerier.getFoodQuerier().hasNextPage() ? View.VISIBLE : View.INVISIBLE);
 
         searchBar.setOnEditorActionListener((textView, actionID, event)->{
             if(actionID == EditorInfo.IME_ACTION_DONE) {
@@ -70,30 +77,87 @@ public class FoodListFragment extends Fragment {
             return false;
         });
 
-        searchButton.setOnClickListener((l)->{
-            beginQuery();
-        });
+        searchButton.setOnClickListener((l)-> beginQuery());
 
         favouriteButton.setOnClickListener((l)->{
-            loadMoreButton.setVisibility(View.INVISIBLE);
-            FavouriteFoodDBHelper favFoodDB = new FavouriteFoodDBHelper(this.getContext());
-            SQLiteDatabase db = favFoodDB.getReadableDatabase();
-            Cursor cursor = db.query(
-                    true,
-                    FavouriteFoodDBHelper.FOOD_NUT_TABLE,
-                    null,
-                    null,
-                   null,
-                    null, null, null, null
-            );
-            foodList.clear();
-            foodListAdapter.notifyDataSetChanged();
+            loadFavourites();
+            if(displayList != favouriteList)
+                displayList = favouriteList;
+        });
 
-            cursor.moveToFirst();
-            while(!cursor.isAfterLast()){
-                Log.i(FRAGMENT_NAME,"Reading favourite data");
-                FoodQuerier.getFoodQuerier().cancel(true);
-                FoodData newFoodData = new FoodData(
+        loadMoreButton.setOnClickListener((l)->{
+            if(foodQuerier.hasNextPage()) {
+                progressBar.setVisibility(View.VISIBLE);
+                progressBar.setProgress(0);
+                foodQuerier.queryNextPage();
+            } else {
+                Toast t = Toast.makeText(this.getContext(),R.string.no_more_items,Toast.LENGTH_SHORT);
+                t.setGravity(Gravity.CENTER,0,0);
+                t.show();
+            }
+        });
+
+        progressBar.setMax(100);
+
+        return rootView;
+    }
+
+    /**
+     * Helper method to begin the query to the database. Reads the query from the EditText and checks for invalid searches.
+     */
+    private void beginQuery(){
+        if(searchBar.getText().toString().equals("")) {
+            Toast t = Toast.makeText(this.getContext(), R.string.cant_do_blank_search, Toast.LENGTH_LONG);
+            t.setGravity(Gravity.CENTER, 0, 0);
+            t.show();
+        }
+        else {
+            if(foodListView.getFooterViewsCount() == 0)
+                foodListView.addFooterView(foodListFooter);
+            searchList.clear();
+            foodListAdapter.notifyDataSetChanged();
+            progressBar.setVisibility(View.VISIBLE);
+            progressBar.setProgress(0);
+            Log.i(LOGGER_TAG, "User searched for " + searchBar.getText());
+            foodQuerier.setProgressBar(progressBar);
+            foodQuerier.queryForString(searchBar.getText().toString(), (s) -> {
+                ArrayList<FoodData> newFoodList = foodQuerier.getFoodList();
+                if(displayList != searchList)
+                    displayList = searchList;
+                if (newFoodList.size() > 0) {
+                    Log.i(LOGGER_TAG,"Showing food list: " + newFoodList.toString());
+                    searchList.addAll(newFoodList);
+                    foodListAdapter.notifyDataSetChanged();
+                }
+                else
+                    Toast.makeText(this.getContext(), "No Results Found", Toast.LENGTH_SHORT).show();
+            });
+        }
+    }
+
+    /**
+     * Updates the list of favourite foods.
+     */
+    private void loadFavourites(){
+        if(foodListView.getFooterViewsCount() > 0)
+            foodListView.removeFooterView(foodListFooter);
+        FavouriteFoodDBHelper favFoodDB = new FavouriteFoodDBHelper(this.getContext());
+        SQLiteDatabase db = favFoodDB.getReadableDatabase();
+        Cursor cursor = db.query(
+                true,
+                FavouriteFoodDBHelper.FOOD_NUT_TABLE,
+                null,
+                null,
+                null,
+                null, null, FavouriteFoodDBHelper.FOOD_LABEL, null
+        );
+        favouriteList.clear();
+        foodListAdapter.notifyDataSetChanged();
+
+        cursor.moveToFirst();
+        while (!cursor.isAfterLast()) {
+            foodQuerier.cancel(true);
+            FoodData newFoodData = new FoodData(
                     cursor.getString(cursor.getColumnIndex(FavouriteFoodDBHelper.FOOD_ID)),
                     cursor.getString(cursor.getColumnIndex(FavouriteFoodDBHelper.FOOD_LABEL)),
                     cursor.getString(cursor.getColumnIndex(FavouriteFoodDBHelper.BRAND)),
@@ -104,77 +168,79 @@ public class FoodListFragment extends Fragment {
                     cursor.getDouble(cursor.getColumnIndex(FavouriteFoodDBHelper.FAT)),
                     cursor.getDouble(cursor.getColumnIndex(FavouriteFoodDBHelper.CHOCDF)),
                     cursor.getDouble(cursor.getColumnIndex(FavouriteFoodDBHelper.FIBTG))
-                );
-                foodList.add(newFoodData);
+            );
+            favouriteList.add(newFoodData);
+            if(displayList == favouriteList)
                 foodListAdapter.notifyDataSetChanged();
-                cursor.moveToNext();
-            }
-            cursor.close();
-            db.close();
-        });
 
-        loadMoreButton.setOnClickListener((l)->{
-            FoodQuerier.getFoodQuerier().queryNextPage();
-        });
-
-        progressBar.setMax(100);
-
-        return rootView;
+            cursor.moveToNext();
+        }
+        cursor.close();
+        db.close();
     }
 
-    private void beginQuery(){
-        if(searchBar.getText().toString().equals("")) {
-            Toast t = Toast.makeText(this.getContext(), R.string.cant_do_blank_search, Toast.LENGTH_LONG);
-            t.setGravity(Gravity.CENTER, 0, 0);
-            t.show();
-        }
-        else {
-            foodList.clear();
-            foodListAdapter.notifyDataSetChanged();
-            progressBar.setVisibility(View.VISIBLE);
-            Log.i(FRAGMENT_NAME, "User searched for " + searchBar.getText());
-            FoodQuerier.getFoodQuerier().setProgressBar(progressBar);
-            FoodQuerier.getFoodQuerier().queryForString(searchBar.getText().toString(), (s) -> {
-                ArrayList<FoodData> newFoodList = FoodQuerier.getFoodQuerier().getFoodList();
-                if (newFoodList.size() > 0) {
-                    Log.i(FRAGMENT_NAME,"Showing food list: " + newFoodList.toString());
-                    foodList.addAll(newFoodList);
-                    foodListAdapter.notifyDataSetChanged();
-                    loadMoreButton.setVisibility(FoodQuerier.getFoodQuerier().hasNextPage() ? View.VISIBLE : View.INVISIBLE);
-                }
-                else
-                    Toast.makeText(this.getContext(), "No Results Found", Toast.LENGTH_SHORT).show();
-            });
-        }
+    /**
+     * Places a FoodInfoFragment in this Fragment's view when the user clicks on a food to see more info on it
+     * @param foodData The FoodData to be displayed by the created FoodInfoFragment
+     */
+    private void showFoodInfo(FoodData foodData){
+        this.getActivity().getSupportFragmentManager().beginTransaction().replace(this.getView().getId(), FoodInfoFragment.newInstance(foodData)).addToBackStack(null).commit();
+        this.getActivity().getSupportFragmentManager().addOnBackStackChangedListener(() -> {
+            if (displayList == favouriteList) {
+                loadFavourites();
+                foodListAdapter.notifyDataSetChanged();
+            } else if (foodQuerier.hasNextPage() && foodListView.getFooterViewsCount() == 0)
+                foodListView.addFooterView(foodListFooter);
+        });
     }
 
+    /**
+     * Private class ArrayAdapter for drawing the FoodData list
+     */
     class FoodListAdapter extends ArrayAdapter<FoodData> {
-
-        public FoodListAdapter(Context ctx) {
+        FoodListAdapter(Context ctx) {
             super(ctx, 0);
         }
 
         @Override
         public int getCount(){
-            return foodList.size();
+            return displayList.size();
         }
 
         @Override
         public FoodData getItem(int index){
-            return foodList.get(index);
+            return displayList.get(index);
         }
 
+        /**
+         *
+         * @param position The position in the list this view represents
+         * @param convertView Used for the ViewHolder pattern
+         * @param parent The ViewGroup for the cretead view
+         * @return The view that represents the item in the list
+         */
         @Override
-        public View getView(int position, View convertView, ViewGroup parent){
-            View view = getLayoutInflater().inflate(R.layout.layout_item_list_food, parent, false);
-            TextView hint = view.findViewById(R.id.label);
-            hint.setText(foodList.get(position).getLabel());
-            hint.setOnClickListener((l)->{
+        public View getView(int position, View convertView, @NonNull ViewGroup parent){
+            ViewHolderFood viewHolder;
+
+            if(convertView == null) {
+                convertView = getLayoutInflater().inflate(R.layout.layout_item_list_food, parent, false);
+
+                viewHolder = new ViewHolderFood();
+                viewHolder.label = convertView.findViewById(R.id.label);
+                convertView.setTag(viewHolder);
+            } else {
+                viewHolder = (ViewHolderFood) convertView.getTag();
+            }
+
+            viewHolder.label.setText(displayList.get(position).getLabel());
+            viewHolder.label.setOnClickListener((l) -> {
                 FoodData foodItem = getItem(position);
-                Log.i(FRAGMENT_NAME, "Displaying food info for " + foodItem.getLabel());
-                FoodNutritionActivity.class.cast(FoodListFragment.this.getActivity()).showFoodInfo(foodItem);
+                Log.i(LOGGER_TAG, "Displaying food info for " + foodItem.getLabel());
+                showFoodInfo(foodItem);
             });
-            return view;
+
+            return convertView;
         }
 
         @Override

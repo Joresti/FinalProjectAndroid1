@@ -1,54 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat
+<FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".foodandnutrition.FoodNutritionActivity"
-    android:orientation="vertical">
-
-    <ListView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:id="@+id/food_list"/>
-
-    <android.support.v4.widget.ContentLoadingProgressBar
-        android:id="@+id/loading_progress"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignTop="@id/search_linear_layout"
-        android:visibility="invisible"
-        style="?android:attr/progressBarStyleHorizontal"/>
+    android:layout_width="match_parent"
+    android:id="@+id/root_fragment_view">
 
     <android.support.v7.widget.LinearLayoutCompat
-    android:id="@+id/search_linear_layout"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_alignParentBottom="true"
-    android:orientation="horizontal">
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".foodandnutrition.FoodNutritionActivity"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/food_search_bar"
+        <ListView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/search_for_a_food"
-            android:singleLine="true"
-            android:layout_alignParentStart="true"
-            android:layout_weight="1"/>
+            android:layout_weight="1"
+            android:id="@+id/food_list"/>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/search_btn"
-            android:layout_width="wrap_content"
+        <android.support.v4.widget.ContentLoadingProgressBar
+            android:id="@+id/loading_progress"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/search"/>
+            android:layout_alignTop="@id/search_linear_layout"
+            android:visibility="invisible"
+            style="?android:attr/progressBarStyleHorizontal"/>
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/favourite_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/favourite_plural"
-            android:layout_alignParentEnd="true"/>
+        <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/search_linear_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
 
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/food_search_bar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/search_for_a_food"
+                android:singleLine="true"
+                android:layout_alignParentStart="true"
+                android:layout_weight="1"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/search_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/search"/>
+
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/favourite_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/favourite_plural"
+                android:layout_alignParentEnd="true"/>
+
+        </android.support.v7.widget.LinearLayoutCompat>
     </android.support.v7.widget.LinearLayoutCompat>
-</android.support.v7.widget.LinearLayoutCompat>
+</FrameLayout>

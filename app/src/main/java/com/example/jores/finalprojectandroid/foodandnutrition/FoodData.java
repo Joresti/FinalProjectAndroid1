@@ -4,6 +4,9 @@ import android.util.Log;
 
 import org.json.JSONObject;
 
+/**
+ * A class used to store and normalize the shape of the data across the FoodNutritionActivity and it's fragments
+ */
 class FoodData {
     private String foodID;
     private String label;
