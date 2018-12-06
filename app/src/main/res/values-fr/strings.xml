@@ -66,5 +66,6 @@
     <string name="helpMessage">Auteur: Chad Souster\nVersion 2.0\nDescription de l\'application: Cliquez sur Démarrer itinéraire, entrez le numéro de votre arrêt de bus souhaité, puis cliquez sur le numéro du bus souhaité pour obtenir les détails du bus.</string>
     <string name="helpNeutralButton">Fermer</string>
     <string name="deleteOrContinueDialog">"Cliquez sur Continuer pour afficher les informations sur l'itinéraire ou supprimer l/'arrêt si vous le souhaitez."</string>
-
+    <string name="routeActivitySnackBarClose">Fermer</string>
+    <string name="routeInformationSnackBar">Informations sur l\'itinéraire</string>
 </resources>

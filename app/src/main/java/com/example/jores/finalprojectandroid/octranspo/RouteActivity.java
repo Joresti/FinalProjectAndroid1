@@ -65,8 +65,8 @@ public class RouteActivity extends MenuInflationBaseActivity {
         Log.i(ACTIVITY_NAME, "onCreate");
 
         View view = findViewById(android.R.id.content);
-        Snackbar.make(view, "Route Information", Snackbar.LENGTH_LONG)
-                .setAction("CLOSE", new View.OnClickListener() {
+        Snackbar.make(view, R.string.routeInformationSnackBar, Snackbar.LENGTH_LONG)
+                .setAction(R.string.routeActivitySnackBarClose, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 

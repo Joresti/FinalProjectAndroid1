@@ -65,5 +65,6 @@
     <string name="cbc_search_bar">Search for key words in headline</string>
     <string name="cbc_delete_story_warning">Are you sure you\'d like to delete this story?</string>
     <string name="food_search_help_message">Search for a food in the bar and a list of foods from the Database will appear. Tap a food to find more info on that food.</string>
-
+    <string name="routeActivitySnackBarClose">Close</string>
+    <string name="routeInformationSnackBar">Route Information</string>
 </resources>
