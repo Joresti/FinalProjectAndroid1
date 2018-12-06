@@ -34,7 +34,7 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
 
         //create SnackBar to display when OCTranspo App is clicked on
         View view = findViewById(android.R.id.content);
-        Snackbar.make(view, "OC Transpo Route App", Snackbar.LENGTH_LONG)
+        Snackbar.make(view, R.string.ocTranspoSnackBar, Snackbar.LENGTH_LONG)
                 .setAction("CLOSE", new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -61,7 +61,7 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
 
         imageView = findViewById(R.id.imageView_ocTranspoMain);
         imageView.setOnClickListener((v) -> new AlertDialog.Builder(OCTranspoMain.this)
-                .setTitle("Clicking the image has no effect. Click the Start Route button!" )
+                .setTitle(R.string.clickStartRouteToBegin )
                 .setNegativeButton("Close", null)
                 .show());
 

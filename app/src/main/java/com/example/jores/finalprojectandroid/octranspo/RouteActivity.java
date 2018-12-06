@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.jores.finalprojectandroid.MenuInflationBaseActivity;
 import com.example.jores.finalprojectandroid.R;
 
 import org.xmlpull.v1.XmlPullParser;
@@ -24,7 +25,7 @@ import java.io.StringReader;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class RouteActivity extends AppCompatActivity {
+public class RouteActivity extends MenuInflationBaseActivity {
 
     protected static final String ACTIVITY_NAME = "RouteActivity";
 
@@ -47,6 +48,9 @@ public class RouteActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
+
+        //Adding the toolbar to the activity
+        setSupportActionBar(findViewById(R.id.main_toolbar));
 
         directionArray = new ArrayList<>();
         routeArray = new ArrayList<>();
@@ -183,7 +187,7 @@ public class RouteActivity extends AppCompatActivity {
         }
         if (routeArray.size() == directionArray.size()) {
             for (int i = 0; i < routeArray.size(); i++) {
-                result.add(routeArray.get(i) + " --> " + directionArray.get(i));
+                result.add(routeArray.get(i) + " -> " + directionArray.get(i));
             }
 
             runOnUiThread(new Runnable() {

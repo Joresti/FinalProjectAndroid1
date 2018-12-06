@@ -1,16 +1,25 @@
 <resources>
-    <string name="app_name">CST2335-FinalProject</string>
+    <string name="app_name">AndroidFinalProject</string>
     <string name="cbcAppName">CBC News App</string>
     <string name="foodAppName">Food Nutrition App</string>
-    <string name="ocTranspoAppName">OC Transpo Route App</string>
-    <string name="startRouteButton">Start route</string>
-    <string name="startRouteButtonToastMessage">Moving to your list of bus stops</string>
+    <string name="ocTranspoAppName">OC Transpo</string>
+    <string name="ocTranspoSnackBar">OC Transpo</string>
+    <string name="clickStartRouteToBegin">Click Start Route to begin!</string>
+    <string name="startRouteButton">Start Route</string>
+    <string name="startRouteButtonToastMessage">Moving to saved stops</string>
     <string name="busStopsButtonString">ENTER ROUTE NUMBER</string>
-    <string name="editTextBusStopsHint">Enter route number</string>
+    <string name="editTextBusStopsHint">Enter Route Number</string>
     <string name="busNumberAndDirection">BusNumber / Direction</string>
     <string name="routeNumber">Selected Route</string>
     <string name="routeSelectedToastMessage">Route Selected</string>
     <string name="noInformationFoundToastMessage">No Available Information</string>
-    <string name="deleteBusStop">Delete this route</string>
+    <string name="deleteBusStopContinue">Continue</string>
+    <string name="deleteBusStopCancel">Cancel</string>
+    <string name="stopAddedToast">Stop Added!</string>
+    <string name="savedRoutes">Saved Routes</string>
+    <string name="closeToast">CLOSE</string>
+    <string name="deleteBusStop">Delete route</string>
+    <string name="routeDeleted"> Route Deleted</string>
+    <string name="deleteOrContinueDialog">"Click continue to view route information or delete stop as desired?"</string>
 
 </resources>

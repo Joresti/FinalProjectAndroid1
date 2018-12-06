@@ -8,13 +8,20 @@
     android:layout_height="match_parent"
     tools:context=".octranspo.BusStops">
 
+    <include
+        layout="@layout/toolbar_main"
+        android:id="@+id/toolbar_main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
     <ListView
         android:id="@+id/busStopsListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="false"
         android:layout_above="@id/editTextBusStops"
+        android:layout_below="@+id/toolbar_main"
         android:layout_marginStart="0dp" />
 
     <Button
@@ -25,6 +32,7 @@
         android:layout_below="@id/busStopsListView"
         android:layout_toStartOf="@+id/editTextBusStops"
         android:text="@string/busStopsButtonString" />
+
 
     <EditText
         android:id="@+id/editTextBusStops"

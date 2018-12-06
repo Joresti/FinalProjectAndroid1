@@ -1,4 +1,5 @@
 package com.example.jores.finalprojectandroid.octranspo;
+import com.example.jores.finalprojectandroid.MenuInflationBaseActivity;
 import com.example.jores.finalprojectandroid.R;
 
 import android.app.AlertDialog;
@@ -28,7 +29,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.zip.Inflater;
 
-public class BusStops extends AppCompatActivity {
+public class BusStops extends MenuInflationBaseActivity {
 
     private final String ACTIVITY_NAME = "BusStopsActivity";
     private ArrayList<String> routeArray;
@@ -47,6 +48,9 @@ public class BusStops extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bus_stops);
+
+        //Adding the toolbar to the activity
+        setSupportActionBar(findViewById(R.id.main_toolbar));
 
         routeAdapter = new RouteAdapter(this);
         routeArray = new ArrayList<>();
@@ -80,27 +84,27 @@ public class BusStops extends AppCompatActivity {
                 listView.setAdapter(routeAdapter);
                 routeAdapter.notifyDataSetChanged();
                 editText.setText("");
-                Toast.makeText(BusStops.this,"STOP ADDED", Toast.LENGTH_SHORT)
+                Toast.makeText(BusStops.this,R.string.stopAddedToast, Toast.LENGTH_SHORT)
                 .show();
             }
         });
-
-
-
 
 
         listView.setAdapter(routeAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
                 LayoutInflater inflater = getLayoutInflater();
                 View deleteView = inflater.inflate(R.layout.activity_delete_route, null);
+
                 final Button button = deleteView.findViewById(R.id.deleteRouteButton);
 
                 AlertDialog alert = new AlertDialog.Builder(BusStops.this)
-                        .setTitle("Would you like to see busses for this route?" )
+
+                        .setTitle(R.string.deleteOrContinueDialog)
                         .setView(deleteView)
-                        .setPositiveButton("Continue", new DialogInterface.OnClickListener() {
+                        .setPositiveButton(R.string.deleteBusStopContinue, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
@@ -113,27 +117,25 @@ public class BusStops extends AppCompatActivity {
 
                             }
                         })
-                        .setNegativeButton("Cancel", null)
+                        .setNegativeButton(R.string.deleteBusStopCancel, null)
                         .show();
 
                 button.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-
                         routeDbHelper.deleteRoute(routeArray.get(position));
+                        Toast.makeText(BusStops.this, position + R.string.routeDeleted, Toast.LENGTH_SHORT).show();
 
-
-                        String str = "SELECT " + RouteDatabaseHelper.KEY_ID + ", " +
-                                RouteDatabaseHelper.KEY_MESSAGE + " from " + RouteDatabaseHelper.TABLE_NAME;
+                        String str = "SELECT " + RouteDatabaseHelper.KEY_ID + ", " + RouteDatabaseHelper.KEY_MESSAGE + " from " + RouteDatabaseHelper.TABLE_NAME;
                         cursor = sqlDatabase.rawQuery(str, null);
                         int colIndex = cursor.getColumnIndex(RouteDatabaseHelper.KEY_MESSAGE);
                         routeArray.clear();
                         cursor.moveToFirst();
                         while (!cursor.isAfterLast()) {
-                            String s = cursor.getString(colIndex);
-                            Log.i(ACTIVITY_NAME, "SQL MESSAGE: " + s);
-                            routeArray.add(s);
+
+                            String string = cursor.getString(colIndex);
+                            routeArray.add(string);
                             cursor.moveToNext();
                         }
                         routeAdapter.notifyDataSetChanged();
@@ -146,12 +148,9 @@ public class BusStops extends AppCompatActivity {
         });
 
 
-
-
-
         View view = findViewById(android.R.id.content);
-        Snackbar.make(view, "Route Stops", Snackbar.LENGTH_LONG)
-                .setAction("CLOSE", new View.OnClickListener() {
+        Snackbar.make(view, R.string.savedRoutes, Snackbar.LENGTH_LONG)
+                .setAction(R.string.closeToast, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 

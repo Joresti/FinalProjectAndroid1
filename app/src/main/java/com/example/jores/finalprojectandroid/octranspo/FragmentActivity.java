@@ -65,28 +65,34 @@ public class FragmentActivity extends Fragment {
     }
 
     private class AsyncLoader extends AsyncTask<String, Integer, String> {
+
         String number= null;
         String route = null;
         String direction = null;
         ArrayList<String> resultArr = new ArrayList<>();
         @Override
         protected String doInBackground(String... params) {
+
             number = params[0];
             route = params[1];
             direction = params[2];
-            Log.i("RouteFragment","Number is " +number+" Route is " +route+" Direction is " +direction);
 
             try {
                 resultArr = downloadRouteInfo(number, route, direction);
             }catch (IOException e){
+
                 e.printStackTrace();
             }
+
             return null;
         }
+
+
         @Override
         protected void onProgressUpdate(Integer... progress) {
             super.onProgressUpdate(progress);
         }
+
 
         protected void onPostExecute(String result) {
 
@@ -95,12 +101,8 @@ public class FragmentActivity extends Fragment {
                 listView.setAdapter(adapter);
 
             }catch (NullPointerException e){
-                //CharSequence toastMessage = getString(R.string.noInformationFoundToastMessage);
-               // Toast.makeText(getContext(), toastMessage, Toast.LENGTH_LONG).show();
+
             }
-
-
-
 
         }
     }
@@ -109,7 +111,6 @@ public class FragmentActivity extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view;
-
         view = inflater.inflate(R.layout.activity_fragment, container, false);
         listView = view.findViewById(R.id.fragmentActivityListview);
 
@@ -122,8 +123,7 @@ public class FragmentActivity extends Fragment {
         HttpURLConnection urlConnection = null;
         InputStream inputStream = null;
 
-        String ocTranspo = "https://api.octranspo1.com/v1.2/GetNextTripsForStop?appID=223eb5c3&&apiKey" +
-                "=ab27db5b435b8c8819ffb8095328e775&stopNo="+stopNumber+"&routeNo="+routeNumber+"";
+        String ocTranspo = "https://api.octranspo1.com/v1.2/GetNextTripsForStop?appID=223eb5c3&&apiKey" + "=ab27db5b435b8c8819ffb8095328e775&stopNo="+stopNumber+"&routeNo="+routeNumber+"";
 
         try{
 
@@ -147,7 +147,7 @@ public class FragmentActivity extends Fragment {
         } catch (IOException e) {
 
             e.printStackTrace();
-            Log.i(ACTIVITY_NAME, "IOException caught: " + e);
+            Log.i(ACTIVITY_NAME, "Connection IOException caught: " + e);
 
         } finally {
 
@@ -161,6 +161,7 @@ public class FragmentActivity extends Fragment {
         return resultArray;
     }
 
+
     private ArrayList<String> readRouteStream(String busDirection, InputStream resultStream){
 
 
@@ -170,7 +171,7 @@ public class FragmentActivity extends Fragment {
             XmlPullParser parser = factory.newPullParser();
             parser.setInput(resultStream, "UTF-8");
 
-            //start read the stream
+            //Loop through stream if not null and obtain bus route information
             while((parser.getEventType())!= XmlPullParser.END_DOCUMENT){
                 if(parser.getEventType() == XmlPullParser.START_TAG){
 
@@ -215,9 +216,9 @@ public class FragmentActivity extends Fragment {
                 }
                 parser.next();
             }
-        }catch(Exception ex){
-            ex.printStackTrace();
-            Log.i(ACTIVITY_NAME,"Exception caught: " + ex);
+        }catch(Exception exception){
+            exception.printStackTrace();
+            Log.i(ACTIVITY_NAME,"Parser Exception caught: " + exception);
         }
 
         double averageTime;
@@ -227,16 +228,16 @@ public class FragmentActivity extends Fragment {
         }
 
         averageTime = adjustedTime/adjustedTimeArray.size();
-        routeInformation.add("AdjustedScheduleTime average: " + averageTime);
+        routeInformation.add("AdjustedScheduleTime average: " + averageTime + "min");
 
 
         if (directionArray.get(0).equalsIgnoreCase(busDirection)){
             for(int i = 0; i < destinationArray.size()/2; i++){
-                routeInformation.add("TripDestination: " + destinationArray.get(i)
+                routeInformation.add("\n\nTripDestination: " + destinationArray.get(i)
                         + "\n\nLatitude: " + latitudeArray.get(i)+ "\n\nLongitude: " + longitudeArray.get(i)
-                        + "\n\nSpeed: " +  speedArray.get(i)
+                        + "\n\nSpeed: " +  speedArray.get(i) + "km/hr"
                         + "\n\nTripStartTime: " + timeArray.get(i) + "\n\nAdjustedScheduleTime: "
-                        + adjustedTimeArray.get(i));
+                        + adjustedTimeArray.get(i) + "min");
 
             }
 
