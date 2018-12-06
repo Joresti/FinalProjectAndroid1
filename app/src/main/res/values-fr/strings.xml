@@ -4,8 +4,6 @@
     <string name="cbcAppName">App Nouvelles CBC</string>
     <string name="foodAppName">App Nutrition Alimentaire</string>
     <string name="ocTranspoAppName">OC Transpo Route App</string>
-    <string name="startRouteButton">Start route</string>
-    <string name="startRouteButtonToastMessage">Moving to your Bus stop list</string>
     <string name="getNews">NOUVELLES INFORMATIONS</string>
     <string name="cbcFragSaveBtn">SAUVEZ L\'HISTOIRE</string>
     <string name="cbcFragDeleteBtn">SUPPRIMER L\'HISTOIRE</string>
@@ -45,10 +43,6 @@
     <string name="favourite_plural">L\' préféré</string>
     <string name="added_to_fav">Ajouté comme favori</string>
     <string name="removed_from_fav">Retiré des favoris</string>
-    <string name="app_name">AndroidFinalProject</string>
-    <string name="cbcAppName">App Nouvelles de CBC</string>
-    <string name="foodAppName">App Nutrition Alimentaire</string>
-    <string name="ocTranspoAppName">OC Transpo</string>
     <string name="ocTranspoSnackBar">OC Transpo</string>
     <string name="clickStartRouteToBegin">Cliquez sur Démarrer l\'itinéraire pour commencer!</string>
     <string name="startRouteButton">Itinéraire de départ</string>

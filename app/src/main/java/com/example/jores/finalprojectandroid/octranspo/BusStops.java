@@ -35,8 +35,6 @@ public class BusStops extends MenuInflationBaseActivity {
 
     private static final String ACTIVITY_NAME = BusStops.class.getSimpleName();
 
-
-    private final String ACTIVITY_NAME = "BusStopsActivity";
     private ArrayList<String> routeArray;
     private EditText editText;
     private ListView listView;
@@ -59,7 +57,7 @@ public class BusStops extends MenuInflationBaseActivity {
         setContentView(R.layout.activity_bus_stops);
 
         //Adding the toolbar to the activity
-        setSupportActionBar(findViewById(R.id.main_toolbar));
+        //setSupportActionBar(findViewById(R.id.main_toolbar));
 
         routeAdapter = new RouteAdapter(this);
         routeArray = new ArrayList<>();

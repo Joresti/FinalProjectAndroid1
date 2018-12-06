@@ -27,7 +27,6 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
     private Toolbar toolBar;
     private ImageView imageView;
     Button button;
-    private final String ACTIVITY_MESSAGE = "OCTranspoMainActivity";
 
 
 

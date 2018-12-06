@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -51,9 +52,6 @@ public class RouteActivity extends MenuInflationBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_route);
-
-        //Adding the toolbar to the activity
-        setSupportActionBar(findViewById(R.id.main_toolbar));
 
         directionArray = new ArrayList<>();
         routeArray = new ArrayList<>();
@@ -209,6 +207,11 @@ public class RouteActivity extends MenuInflationBaseActivity {
 
         }
         return result;
+    }
+
+    @Override
+    public void onHelpMenuClick(MenuItem mi){
+
     }
 }
 

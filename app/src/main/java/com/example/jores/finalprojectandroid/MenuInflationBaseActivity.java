@@ -30,6 +30,7 @@ public abstract class MenuInflationBaseActivity extends AppCompatActivity {
     protected void onPostCreate(Bundle bundle){
         super.onPostCreate(bundle);
         setSupportActionBar(findViewById(R.id.main_toolbar));
+        Log.i("HELP","ME");
     }
 
     /**
