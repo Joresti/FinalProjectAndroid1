@@ -3,7 +3,7 @@
     <string name="app_name">CST-Projet final</string>
     <string name="cbcAppName">App Nouvelles CBC</string>
     <string name="foodAppName">App Nutrition Alimentaire</string>
-    <string name="ocTranspoAppName">OC Transpo Route App</string>
+    <string name="ocTranspoAppName">OC Transpo</string>
     <string name="getNews">NOUVELLES INFORMATIONS</string>
     <string name="cbcFragSaveBtn">SAUVEZ L\'HISTOIRE</string>
     <string name="cbcFragDeleteBtn">SUPPRIMER L\'HISTOIRE</string>
@@ -60,6 +60,11 @@
     <string name="savedRoutes">Itinéraires sauvegardés</string>
     <string name="routeDeleted"> Route Supprimée</string>
     <string name="closeToast">FERMER</string>
+    <string name="ocTranspoBusStopsName">Arrêts d\'autobus</string>
+    <string name="imageCloseButton">Fermer</string>
+    <string name="helpTitle">Aidez-moi</string>
+    <string name="helpMessage">Auteur: Chad Souster\nVersion 2.0\nDescription de l\'application: Cliquez sur Démarrer itinéraire, entrez le numéro de votre arrêt de bus souhaité, puis cliquez sur le numéro du bus souhaité pour obtenir les détails du bus.</string>
+    <string name="helpNeutralButton">Fermer</string>
     <string name="deleteOrContinueDialog">"Cliquez sur Continuer pour afficher les informations sur l'itinéraire ou supprimer l/'arrêt si vous le souhaitez."</string>
 
 </resources>

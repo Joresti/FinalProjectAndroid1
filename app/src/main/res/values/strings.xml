@@ -23,6 +23,10 @@
     <string name="routeDeleted"> Route Deleted</string>
     <string name="deleteOrContinueDialog">"Click continue to view route information or delete stop as desired?"</string>
     <string name="ocTranspoBusStopsName">Bus Stops</string>
+    <string name="imageCloseButton">Close</string>
+    <string name="helpTitle">Aidez-moi</string>
+    <string name="helpMessage">Author: Chad Souster\nVersion 2.0\n Application Description: Click on Start Route, enter your desired bus stop number, then click desired bus number to get bus details</string>
+    <string name="helpNeutralButton">Close</string>
     <string name="menu_btn_help">Help</string>
     <string name="search_for_a_food">Search for a Food</string>
     <string name="search">Search</string>

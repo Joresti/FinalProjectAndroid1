@@ -21,7 +21,6 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
 
     private static final String ACTIVITY_NAME = OCTranspoMain.class.getSimpleName();
 
-   // private Snackbar snackBar;
     private String ACTIVITY_MESSAGE = "OCTranspoMain";
     private View container;
     private Toolbar toolBar;
@@ -65,12 +64,17 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
         ImageView imageView = findViewById(R.id.imageView_ocTranspoMain);
         imageView.setOnClickListener((v) -> new AlertDialog.Builder(OCTranspoMain.this)
                 .setTitle(R.string.clickStartRouteToBegin )
-                .setNegativeButton("Close", null)
+                .setNegativeButton(R.string.imageCloseButton, null)
                 .show());
     }
 
     @Override
-    public void onHelpMenuClick(MenuItem mi){
-        Log.i(ACTIVITY_NAME,"Showing help menu");
+    public void onHelpMenuClick(MenuItem mi) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.helpTitle)
+                .setMessage(R.string.helpMessage)
+                .setNeutralButton(R.string.helpNeutralButton, null)
+                .show();
+
     }
 }

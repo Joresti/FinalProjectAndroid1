@@ -56,8 +56,6 @@ public class BusStops extends MenuInflationBaseActivity {
 
         setContentView(R.layout.activity_bus_stops);
 
-        //Adding the toolbar to the activity
-        //setSupportActionBar(findViewById(R.id.main_toolbar));
 
         routeAdapter = new RouteAdapter(this);
         routeArray = new ArrayList<>();
@@ -223,7 +221,12 @@ public class BusStops extends MenuInflationBaseActivity {
     }
 
     @Override
-    public void onHelpMenuClick(MenuItem mi){
-        Log.i(ACTIVITY_NAME,"Showing help menu");
+    public void onHelpMenuClick(MenuItem mi) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.helpTitle)
+                .setMessage(R.string.helpMessage)
+                .setNeutralButton(R.string.helpNeutralButton, null)
+                .show();
+
     }
 }

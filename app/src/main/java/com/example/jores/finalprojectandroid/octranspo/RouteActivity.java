@@ -1,5 +1,6 @@
 package com.example.jores.finalprojectandroid.octranspo;
 
+import android.app.AlertDialog;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -210,7 +211,12 @@ public class RouteActivity extends MenuInflationBaseActivity {
     }
 
     @Override
-    public void onHelpMenuClick(MenuItem mi){
+    public void onHelpMenuClick(MenuItem mi) {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.helpTitle)
+                .setMessage(R.string.helpMessage)
+                .setNeutralButton(R.string.helpNeutralButton, null)
+                .show();
 
     }
 }
