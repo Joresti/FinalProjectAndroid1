@@ -37,6 +37,10 @@ public class FragmentActivity extends Fragment {
     private ArrayList<String> timeArray;
     AsyncLoader asyncLoader;
 
+    /**
+     *
+     * @param bundle
+     */
     @Override
     public void onCreate(Bundle bundle){
         super.onCreate(bundle);
@@ -63,6 +67,7 @@ public class FragmentActivity extends Fragment {
 
         }
     }
+
 
     private class AsyncLoader extends AsyncTask<String, Integer, String> {
 
@@ -107,6 +112,13 @@ public class FragmentActivity extends Fragment {
         }
     }
 
+    /**
+     *
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return view
+     */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -117,6 +129,14 @@ public class FragmentActivity extends Fragment {
         return view;
     }
 
+    /**
+     *
+     * @param stopNumber
+     * @param routeNumber
+     * @param currentDirection
+     * @return view
+     * @throws IOException
+     */
     private ArrayList<String> downloadRouteInfo (String stopNumber, String routeNumber, String currentDirection)throws IOException {
         URL url;
         ArrayList<String> resultArray = new ArrayList<>();
@@ -161,7 +181,12 @@ public class FragmentActivity extends Fragment {
         return resultArray;
     }
 
-
+    /**
+     *
+     * @param busDirection
+     * @param resultStream
+     * @return route information from stream
+     */
     private ArrayList<String> readRouteStream(String busDirection, InputStream resultStream){
 
 

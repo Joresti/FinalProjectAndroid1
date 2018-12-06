@@ -18,12 +18,18 @@ public class RouteDatabaseHelper extends SQLiteOpenHelper {
     public static final String KEY_ID = "ID";
 
 
-
+    /**
+     *
+     * @param context
+     */
     public RouteDatabaseHelper(Context context){
         super(context, DATABASE_NAME, null, VERSION_NUMBER);
     }
 
-
+    /**
+     *
+     * @param db
+     */
     @Override
     public void onCreate(SQLiteDatabase db) {
         Log.i("RouteDatabaseHelper", "Calling onCreate");
@@ -32,6 +38,12 @@ public class RouteDatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE);
     }
 
+    /**
+     *
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.i("RouteDatabaseHelper", "Calling onUpgrade, old Version = "
@@ -40,6 +52,12 @@ public class RouteDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     *
+     * @param db
+     * @param oldVersion
+     * @param newVersion
+     */
     @Override
     public void onDowngrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         Log.i("RouteDatabaseHelper", "Calling onDowngrade, old Version = "
@@ -49,6 +67,10 @@ public class RouteDatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    /**
+     *
+     * @param id
+     */
     public void deleteRoute(String id){
         SQLiteDatabase sqLiteDatabase = getWritableDatabase();
           sqLiteDatabase.delete(TABLE_NAME, KEY_MESSAGE + " = '" + id + "'", null);

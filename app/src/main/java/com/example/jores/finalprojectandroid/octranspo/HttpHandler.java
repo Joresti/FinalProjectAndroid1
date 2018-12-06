@@ -14,8 +14,19 @@ import java.net.URL;
 import java.util.ArrayList;
 
 public class HttpHandler {
-    public HttpHandler(){}
 
+    /**
+     * Default constructor
+     */
+    public HttpHandler(){
+
+    }
+
+    /**
+     *
+     * @param ocUrl
+     * @return response from connection
+     */
     public String connect(String ocUrl) {
         String response = null;
         try {
@@ -33,6 +44,12 @@ public class HttpHandler {
         return response;
     }
 
+    /**
+     *
+     * @param input
+     * @return StringBuilder of stream
+     * @throws IOException
+     */
     public String streamToString(InputStream input) throws IOException {
         BufferedReader reader = new BufferedReader(new InputStreamReader(input));
         StringBuilder sb = new StringBuilder();

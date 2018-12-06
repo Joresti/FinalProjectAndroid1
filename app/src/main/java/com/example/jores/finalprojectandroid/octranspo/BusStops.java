@@ -31,6 +31,7 @@ import java.util.zip.Inflater;
 
 public class BusStops extends MenuInflationBaseActivity {
 
+
     private final String ACTIVITY_NAME = "BusStopsActivity";
     private ArrayList<String> routeArray;
     private EditText editText;
@@ -44,9 +45,13 @@ public class BusStops extends MenuInflationBaseActivity {
     private ContentValues contentValues;
 
 
+    /**
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_bus_stops);
 
         //Adding the toolbar to the activity
@@ -92,6 +97,13 @@ public class BusStops extends MenuInflationBaseActivity {
 
         listView.setAdapter(routeAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+            /*
+             * @param parent
+             * @param view
+             * @param position
+             * @param id
+             */
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -162,6 +174,7 @@ public class BusStops extends MenuInflationBaseActivity {
 
     }
 
+    //Helper class for Adapter
     private class RouteAdapter extends ArrayAdapter<String>{
         public RouteAdapter(Context context){
             super(context, 0);
@@ -177,16 +190,28 @@ public class BusStops extends MenuInflationBaseActivity {
             return result;
         }
 
-
+        /**
+         * @param position
+         * @return routeArray position
+         */
         public String getItem(int position){
 
             return routeArray.get(position);
         }
 
+        /**
+         *
+         * @param id
+         * @return id
+         */
         public long getID(int id){
             return id;
         }
 
+        /**
+         *
+         * @return array size
+         */
         @Override
         public int getCount() {
 

@@ -19,8 +19,6 @@ import com.example.jores.finalprojectandroid.R;
 public class OCTranspoMain extends MenuInflationBaseActivity {
 
     private final String ACTIVITY_MESSAGE = "OCTranspoMainActivity";
-    private ImageView imageView;
-    Button button;
 
 
 
@@ -45,7 +43,7 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
 
 
 
-        button = findViewById(R.id.startRouteButton);
+        Button button = findViewById(R.id.startRouteButton);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,17 +57,11 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
         });
 
 
-        imageView = findViewById(R.id.imageView_ocTranspoMain);
+        ImageView imageView = findViewById(R.id.imageView_ocTranspoMain);
         imageView.setOnClickListener((v) -> new AlertDialog.Builder(OCTranspoMain.this)
                 .setTitle(R.string.clickStartRouteToBegin )
                 .setNegativeButton("Close", null)
                 .show());
-
-
-
-
-
-
 
     }
 }

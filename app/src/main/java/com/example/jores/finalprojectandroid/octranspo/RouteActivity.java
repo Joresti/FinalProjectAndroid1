@@ -43,7 +43,10 @@ public class RouteActivity extends MenuInflationBaseActivity {
     HttpHandler httpHandler;
     String ocTranspURL;
 
-
+    /**
+     *
+     * @param savedInstanceState
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -85,9 +88,7 @@ public class RouteActivity extends MenuInflationBaseActivity {
 
         }
 
-
-
-
+    //Helper AsyncTask class
     class LoadRouteActivity extends AsyncTask<URL, Integer, ArrayList<String>> {
         ArrayList<String> route;
 
@@ -147,8 +148,13 @@ public class RouteActivity extends MenuInflationBaseActivity {
         }
     }
 
-
-
+    /**
+     *
+     * @param xmlString
+     * @return XML bus information
+     * @throws XmlPullParserException
+     * @throws IOException
+     */
     private ArrayList<String> parseXML(String xmlString) throws XmlPullParserException, IOException {
         ArrayList<String> result = new ArrayList<>();
         String routeId = null;
