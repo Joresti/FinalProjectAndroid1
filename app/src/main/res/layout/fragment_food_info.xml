@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.LinearLayoutCompat
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".foodandnutrition.FoodInfoFragment"
+    android:orientation="vertical"
+    android:background="@android:color/white">
+
+    <TextView
+        android:id="@+id/food_label"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="35sp"
+        android:textColor="@android:color/black"/>
+
+    <GridLayout
+        android:layout_marginTop="30sp"
+        android:id="@+id/info_grid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            style="@style/FoodGridTitleMajor"
+            android:id="@+id/brand_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:text="@string/brand"/>
+
+        <TextView
+            android:id="@+id/brand"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:layout_row="1"
+            android:layout_column="1"/>
+
+        <TextView
+            style="@style/FoodGridTitleMajor"
+            android:id="@+id/category_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:text="@string/category"/>
+
+        <TextView
+            android:id="@+id/category"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:layout_row="1"
+            android:layout_column="2"/>
+
+        <TextView
+            style="@style/FoodGridTitleMajor"
+            android:id="@+id/contents_title"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:text="@string/contents"/>
+
+        <TextView
+            android:id="@+id/contents"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_columnWeight="1"
+            android:gravity="center"
+            android:layout_row="1"
+            android:layout_column="0"/>
+
+    </GridLayout>
+
+    <GridLayout
+        android:layout_marginTop="30sp"
+        android:id="@+id/nutrient_grid"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent">
+
+        <TextView
+            style="@style/FoodGridTitleMajor"
+            android:id="@+id/nutrient_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/nutrient_plural"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:layout_columnSpan="5"
+            android:gravity="center"/>
+
+        <TextView
+            style="@style/FoodGridTitleMinor"
+            android:id="@+id/enerc_kcal_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:gravity="center"
+            android:text="@string/enerc_kcal"/>
+
+        <TextView
+            android:id="@+id/enerc_kcal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:gravity="center"/>
+
+        <TextView
+            style="@style/FoodGridTitleMinor"
+            android:id="@+id/procnt_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:gravity="center"
+            android:text="@string/procnt"/>
+
+        <TextView
+            android:id="@+id/procnt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:gravity="center"/>
+
+        <TextView
+            style="@style/FoodGridTitleMinor"
+            android:id="@+id/fat_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:gravity="center"
+            android:text="@string/fat"/>
+
+        <TextView
+            android:id="@+id/fat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:gravity="center"/>
+
+        <TextView
+            style="@style/FoodGridTitleMinor"
+            android:id="@+id/chocdf_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="1"
+            android:layout_column="3"
+            android:gravity="center"
+            android:text="@string/chocdf_plural"/>
+
+        <TextView
+            android:id="@+id/chocdf"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="2"
+            android:layout_column="3"
+            android:gravity="center"/>
+
+        <TextView
+            style="@style/FoodGridTitleMinor"
+            android:id="@+id/fibtg_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="1"
+            android:layout_column="4"
+            android:gravity="center"
+            android:text="@string/fibtg"/>
+
+        <TextView
+            android:id="@+id/fibtg"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_columnWeight="1"
+            android:layout_row="2"
+            android:layout_column="4"
+            android:gravity="center"/>
+        
+    </GridLayout>
+
+    <CheckBox
+        android:id="@+id/favourite_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/favourite"
+        android:button="@null"
+        android:drawableEnd="?android:attr/listChoiceIndicatorMultiple"/>
+
+</android.support.v7.widget.LinearLayoutCompat>

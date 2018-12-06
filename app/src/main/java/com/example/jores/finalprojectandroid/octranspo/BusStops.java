@@ -28,8 +28,12 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.zip.Inflater;
+import android.util.Log;
+import android.view.MenuItem;
 
 public class BusStops extends MenuInflationBaseActivity {
+
+    private static final String ACTIVITY_NAME = BusStops.class.getSimpleName();
 
 
     private final String ACTIVITY_NAME = "BusStopsActivity";
@@ -218,5 +222,10 @@ public class BusStops extends MenuInflationBaseActivity {
             return routeArray.size();
         }
 
+    }
+
+    @Override
+    public void onHelpMenuClick(MenuItem mi){
+        Log.i(ACTIVITY_NAME,"Showing help menu");
     }
 }

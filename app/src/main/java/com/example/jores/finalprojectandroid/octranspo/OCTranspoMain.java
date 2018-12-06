@@ -7,6 +7,7 @@ import android.support.design.widget.Snackbar;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -18,6 +19,14 @@ import com.example.jores.finalprojectandroid.R;
 
 public class OCTranspoMain extends MenuInflationBaseActivity {
 
+    private static final String ACTIVITY_NAME = OCTranspoMain.class.getSimpleName();
+
+   // private Snackbar snackBar;
+    private String ACTIVITY_MESSAGE = "OCTranspoMain";
+    private View container;
+    private Toolbar toolBar;
+    private ImageView imageView;
+    Button button;
     private final String ACTIVITY_MESSAGE = "OCTranspoMainActivity";
 
 
@@ -26,9 +35,6 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_octranspo_main);
-
-        //Adding the toolbar to the activity
-        setSupportActionBar(findViewById(R.id.main_toolbar));
 
         //create SnackBar to display when OCTranspo App is clicked on
         View view = findViewById(android.R.id.content);
@@ -62,6 +68,10 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
                 .setTitle(R.string.clickStartRouteToBegin )
                 .setNegativeButton("Close", null)
                 .show());
+    }
 
+    @Override
+    public void onHelpMenuClick(MenuItem mi){
+        Log.i(ACTIVITY_NAME,"Showing help menu");
     }
 }

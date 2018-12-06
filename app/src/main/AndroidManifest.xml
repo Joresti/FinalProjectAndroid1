@@ -28,6 +28,10 @@
             android:name=".cbcnews.CBCNewsMain"
             android:label="@string/cbcAppName"
             android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateHidden"/>
+        <activity android:name=".cbcnews.ArticleDetails"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".octranspo.OCTranspoMain"
             android:label="@string/ocTranspoAppName"
@@ -42,6 +46,11 @@
             android:label="@string/ocTranspoAppName"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".octranspo.FragmentActivity"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".octranspo.BusStops"
+            android:label="@string/ocTranspoBusStopsName"
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

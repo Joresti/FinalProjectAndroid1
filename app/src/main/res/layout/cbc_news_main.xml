@@ -8,16 +8,52 @@
     <include
         layout="@layout/toolbar_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+
+        />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ecf8f2">
+        <Button
+            android:id="@+id/getNews"
+            android:layout_alignParentLeft="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/getNews"
+
+            />
+        <ProgressBar
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_gravity="end"
+            android:id="@+id/progressBarCBC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/getNews"
+            android:layout_toLeftOf="@+id/getSavedStories"/>
+        <Button
+            android:id="@+id/getSavedStories"
+            android:text="@string/cbcMainGetSaved"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"/>
+
+    </RelativeLayout>
+
 
     <EditText
         android:id="@+id/editTextCBC"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
-    <ProgressBar
-        android:id="@+id/progressBarCBC"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:cursorVisible="false"
+        android:focusableInTouchMode="true"
+        android:hint="@string/cbc_search_bar"
+        android:singleLine="false"
+        android:backgroundTint=" #a3a3c2"
+        />
+
 
     <ListView
         android:id="@+id/listViewCBC"
