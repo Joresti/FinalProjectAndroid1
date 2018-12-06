@@ -33,7 +33,7 @@ public class OCTranspoMain extends MenuInflationBaseActivity {
         //create SnackBar to display when OCTranspo App is clicked on
         View view = findViewById(android.R.id.content);
         Snackbar.make(view, R.string.ocTranspoSnackBar, Snackbar.LENGTH_LONG)
-                .setAction("CLOSE", new View.OnClickListener() {
+                .setAction(R.string.closeToast, new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                     }

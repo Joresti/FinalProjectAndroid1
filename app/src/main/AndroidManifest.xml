@@ -37,7 +37,8 @@
             android:label="@string/ocTranspoAppName"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".octranspo.RouteDatabaseHelper" />
-        <activity android:name=".octranspo.RouteActivity"
+        <activity
+            android:name=".octranspo.RouteActivity"
             android:label="@string/ocTranspoAppName"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".octranspo.FragmentActivity"></activity>
